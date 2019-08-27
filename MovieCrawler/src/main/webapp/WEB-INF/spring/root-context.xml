@@ -18,7 +18,7 @@
 		<!-- 연결문자열에 log4jdbc가 추가됨 -->
 		<!-- : DB에 대한 Log를 출력해줌 -->
 		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="java" />
+		<property name="username" value="user6" />
 		<property name="password" value="1234" />
 	</bean>
 	<!-- SqlSessionFactory 객체 주입 -->

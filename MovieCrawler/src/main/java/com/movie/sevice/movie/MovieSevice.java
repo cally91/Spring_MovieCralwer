@@ -14,5 +14,7 @@ public interface MovieSevice {
 	// 네이버 영화 코드, 다음 영화 코드 수집
 	public List<MovieDTO> ticketRank()	throws IOException;
 		
+	// 실시간 영화 순위 정보 조회
+	public List<MovieDTO> movieList();
 	
 }
