@@ -23,6 +23,10 @@
 	.page li a{
 		text-decoration: none;
 	}
+	.btn_search{
+	width: 60px;
+	height: 30px;
+	}
 </style>
 </head>
 <body>
@@ -49,7 +53,7 @@
          	<option value="writer">작성자</option>
     	  </select>
 			<input type="text" id="search_board" placeholder="검색할 값을 입력하세요">
-			<button id="search_btn">검색</button>
+			<button class="btn_search" id="search_btn">검색</button>
 		</div>
 		<table>
 			<tr>

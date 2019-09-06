@@ -54,26 +54,29 @@
 .select {
 	text-align: center
 }
+
 span.close:hover {
 	color: #f9320c;
 }
-.btn-login{
-border: 1px solid blue;
-border-radius: 5px;
-background-color: blue;
-color: white;
-font-size: 15px;
-transition-duration : 0.5s;
-cursor: pointer;
-}
-.btn-login:hover{
-border: 1px solid #fab1ce;
 
-background-color: #fab1ce;
-color: black;
+.btn-login {
+	border: 1px solid blue;
+	border-radius: 5px;
+	background-color: blue;
+	color: white;
+	font-size: 15px;
+	transition-duration: 0.5s;
+	cursor: pointer;
 }
-div.err_msg ,div.err_msg_id,div.err_msg_pass{
-color: red;
+
+.btn-login:hover {
+	border: 1px solid #fab1ce;
+	background-color: #fab1ce;
+	color: black;
+}
+
+div.err_msg, div.err_msg_id, div.err_msg_pass {
+	color: red;
 }
 </style>
 </head>
@@ -85,33 +88,38 @@ color: red;
 		<li><a href="${path}/">홈</a></li>
 		<li><a href="${path}/board/list">커뮤니티</a></li>
 
-<c:choose>
-		<c:when test="${empty sessionScope.name}">
-			<li><a href="#" id="login" class="a-menu">로그인</a></li>
-			<li><a href="#" id="join" class="a-menu">회원가입</a></li>
+		<c:choose>
+			<c:when test="${empty sessionScope.name}">
+				<li><a href="#" id="login" class="a-menu">로그인</a></li>
+				<li><a href="#" id="join" class="a-menu">회원가입</a></li>
 			</c:when>
 
-		<c:otherwise>
-		<li><a href="">${userid}</a></li>
-			<li><a href="">로그아웃</a></li>
-		</c:otherwise>
+			<c:otherwise>
+				<li><a href="">${userid}</a></li>
+				<li><a href="">로그아웃</a></li>
+			</c:otherwise>
 		</c:choose>
 	</ul>
 </nav>
 
 <div id="modal-box">
 	<div class="modal-body">
-		<div class="modal-header">로그인<span class="close" style="float:right;cursor:pointer">&times;</span> </div> 
+		<div class="modal-header">
+			로그인<span class="close" style="float: right; cursor: pointer">&times;</span>
+		</div>
 		<div class="modal-content">
-		<div class="err_msg"></div>
+			<div class="err_msg"></div>
 			<div>
-				아이디 :<div class="err_msg_id" ></div>
+				아이디 :
+				<div class="err_msg_id"></div>
 				<input class="userid" type="text" placeholder="id">
 			</div>
 			<div>
-				비밀번호 :<div class="err_msg_pass" ></div><input class="passpw" type="text" placeholder="password">
+				비밀번호 :
+				<div class="err_msg_pass"></div>
+				<input class="passpw" type="password" placeholder="password">
 			</div>
-			<div >
+			<div>
 				<button class="btn-login">로그인</button>
 			</div>
 			<div class="select">
@@ -123,7 +131,9 @@ color: red;
 
 <div id="modal-join">
 	<div class="modal-body">
-		<div class="modal-header">회원가입<span class="close" style="float:right;cursor:pointer">&times;</span></div>
+		<div class="modal-header">
+			회원가입<span class="close" style="float: right; cursor: pointer">&times;</span>
+		</div>
 		<div class="modal-content">
 			<form action="${rootPath}/member/join" method="POST">
 				<div class="in-box">
@@ -160,67 +170,73 @@ color: red;
 </div>
 <script>
 	$(function() {
-		
+
 		$("#login").click(function() {
 			$("#modal-box").css('display', 'block')
 		})
 		$("#join").click(function() {
 			$("#modal-join").css('display', 'block')
 		})
- 		$(".close").click(function () {
-			$("#modal-box").css("display","none")
+		$(".close").click(function() {
+			$("#modal-box").css("display", "none")
 			$(".err_msg_id").text("");
 			$(".err_msg_pass").text("");
 			$(".userid").val("");
 			$(".passpw").val("");
 		})
-		$(".btn-login").click(function() {
-			var userid = $.trim($(".userid").val());
-			var passpw =$.trim($(".passpw").val());
-			var regEmpty =/\s/g; 
-			alert(userid+","+passpw);
-			
-			if(userid == '' || userid.length ==0){
-				$('.err_msg_id').text('아이디: 필수입력정보입니다.').css('visibility','visible')
-				$(".err_msg_pass").text("");
-				return false;
-			}else if(userid.match(regEmpty)){
-				$('.err_msg_id').text('공백없이 입력해주세요').css('visibility','visible')
-				$(".err_msg_pass").text("");
-				return false;
-			}else if(passpw==''||passpw.length == 0){
-				$('.err_msg_pass').text('비밀번호: 필수입력정보입니다.').css('visibility','visible')
-				$(".err_msg_id").text("");
-				return false;
-			}else if(passpw.match(regEmpty)){
-				$('.err_msg_pass').text('공백없이 입력해주세요').css('visibility','visible')
-				$(".err_msg_id").text("");
-				return false;		
-			}
-			$(".err_msg_id").text("");
-			$(".err_msg_pass").text("");
-			$.ajax({
-				url:"${path}/member/login",
-					type:"POST",
-					async: true,
-					dataType:"text",
-					data: "userid="+userid+"&passpw="+passpw,
-					success: function(data) {
-						if(data =="1"){
+		$(".btn-login").click(
+				function() {
+					var userid = $.trim($(".userid").val());
+					var passpw = $.trim($(".passpw").val());
+					var regEmpty = /\s/g;
+					alert(userid + "," + passpw);
+
+					if (userid == '' || userid.length == 0) {
+						$('.err_msg_id').text(' 필수입력정보입니다.').css(
+								'visibility', 'visible')
+						$(".err_msg_pass").text("");
+						return false;
+					} else if (userid.match(regEmpty)) {
+						$('.err_msg_id').text('공백없이 입력해주세요').css('visibility',
+								'visible')
+						$(".err_msg_pass").text("");
+						return false;
+					} else if (passpw == '' || passpw.length == 0) {
+						$('.err_msg_pass').text('필수입력정보입니다.').css(
+								'visibility', 'visible')
+						$(".err_msg_id").text("");
+						return false;
+					} else if (passpw.match(regEmpty)) {
+						$('.err_msg_pass').text('공백없이 입력해주세요').css(
+								'visibility', 'visible')
+						$(".err_msg_id").text("");
+						return false;
+					}
+					$(".err_msg_id").text("");
+					$(".err_msg_pass").text("");
+					$.ajax({
+						url : "${path}/member/login",
+						type : "POST",
+						async : true,
+						dataType : "text",
+						data : "userid=" + userid + "&passpw=" + passpw,
+						success : function(data) {
+							if (data == "1") {
 								location.reload();
-						}else if(data=="-1"){
-							$('#input_id').focus();
-							$('.err_msg').text('회원 아이디 또는 비밀번호가 일치하지않습니다').css('visibility','visible')
-						}else{
-							alert("Error")
+							} else if (data == "-1") {
+								$('#input_id').focus();
+								$('.err_msg').text('회원 아이디 또는 비밀번호가 일치하지않습니다')
+										.css('visibility', 'visible')
+							} else {
+								alert("Error")
+							}
+
+						},
+						error : function() {
+							alert("System Error o0o")
 						}
-						
-					},
-				error:function(){
-					alert("System Error o0o")
-				}
-			});
-		})
-		
+					});
+				})
+
 	})
 </script>
