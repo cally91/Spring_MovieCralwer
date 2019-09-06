@@ -92,6 +92,7 @@ color: red;
 			</c:when>
 
 		<c:otherwise>
+		<li><a href="">${userid}</a></li>
 			<li><a href="">로그아웃</a></li>
 		</c:otherwise>
 		</c:choose>
