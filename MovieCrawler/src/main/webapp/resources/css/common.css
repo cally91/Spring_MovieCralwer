@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+#topBtn {
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	display: none;
+	background: MediumSeaGreen;
+}
+
+.sideBtn {
+	font-size: 22px;
+	width: 50px;
+	height:50px;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 25px;
+	outline: none;
+	z-index: 999;
+	transition: box-shadow .2s cubic-bezier(.4,0,1,1),
+				background-color .2s cubic-bezier(.4,0,.2,1);
+}
+
+
+div.body {
+    width:80%;
+	height:100%;
+	margin: 0 auto;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width:100%;
+    border:1px solid #ccc;
+    margin: 10px auto;
+}
+
+div.table a {
+	text-decoration: none;
+	color:inherit;
+}
+
+tr {
+    border:1px solid #ccc;
+    text-align: center;
+}
+td {
+	  border:1px solid #ccc;
+}
+
+td.td-1 {
+	table-layout: fixed;
+	width: 3%;
+}
+
+td.td-2 {
+	table-layout: fixed;
+	width: 50%;
+}
+td.td-3 {
+	table-layout: fixed;
+	width: 5%;
+}
+td.td-4 {
+	table-layout: fixed;
+	width: 5%;
+}
+td.td-5 {
+	table-layout: fixed;
+	width: 5%;
+}
+td.td-6 {
+	table-layout: fixed;
+	width: 7%;
+}
+td.td-7 {
+	table-layout: fixed;
+	width: 25%;
+}
+div.table {
+    position: relative;
+    top: 25px;
+    display: flex;
+    z-index: 999;
+    width: 300px;
+}
+
+div.table a {
+	text-decoration: none;
+	color:inherit;
+}
+
+div.input {
+	 position: relative;
+    text-align: right;
+}
+
+.button-input {
+	text-align: right;
+}
+
+.new {
+	color:red;
+	animation-name: twinkle;
+	animation-duration: 1.2s;
+	animation-iteration-count:infinite;
+}
+
+@keyframes twinkle {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
+}

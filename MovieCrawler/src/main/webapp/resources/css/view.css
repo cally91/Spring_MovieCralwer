@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+
+div.body-1 {
+    width:60%;
+	height:100%;
+	margin: 0 auto;
+}
+
+
+th {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #9DC8C8;
+	color: white;
+}
+td {
+	text-align: left;
+	padding-left: 10px;
+}
+
+td.content {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+th.th-1 {
+	
+	table-layout: fixed;
+	width: 10%;
+}
