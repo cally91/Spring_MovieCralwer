@@ -1,0 +1,93 @@
+
+DROP TABLE tbl_movie;
+-- 네이버 다음 영화 실시간 순위(1~10) 정보를 담는 테이블
+CREATE TABLE tbl_movie(
+rank NUMBER PRIMARY KEY,
+movie VARCHAR2(100) not null,
+imgsrc VARCHAR2(500) NOT NULL,
+type VARCHAR2(100),
+opendate VARCHAR2(50),
+bookingrate NUMBER(4,2) NOT null,
+runtime VARCHAR2(100),
+director VARCHAR2(1000),
+actor VARCHAR2(1000),
+navercode VARCHAR2(20) not null,
+naverscore NUMBER(4,2)not null,
+daumcode VARCHAR2(20) not null,
+daumscore NUMBER(3,1)not null
+);
+desc tbl_movie;
+
+DELETE FROM tbl_board;
+commit;
+
+SELECT
+    *
+FROM tbl_movie;
+-- 커뮤니티에서 사용할 테이블 생성
+DROP TABLE tbl_board;
+CREATE TABLE tbl_board(
+bno NUMBER ,
+title VARCHAR2(200) NOT NULL,
+content VARCHAR2(2000) NOT NULL,
+writer VARCHAR2(30) not null,
+viewcnt NUMBER default 0,
+replycnt NUMBER default 0,
+regdate DATE default SYSDATE
+);
+ALTER TABLE tbl_board
+ADD CONSTRAINT tbl_board_pk_bno PRIMARY KEY(bno);
+
+--커뮤니티에서 사용할 시퀀스 생성
+DROP SEQUENCE seq_boaed;
+CREATE SEQUENCE seq_board
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요1','HELLO1','user1');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요2','HELLO2','user2');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요3','HELLO3','user3');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요4','HELLO4','user4');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요5','HELLO5','user5');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요6','HELLO6','user6');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요7','HELLO7','user7');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요8','HELLO8','user8');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요9','HELLO9','user9');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요10','HELLO10','user10');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요11','HELLO11','user11');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요12','HELLO12','user12');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요13','HELLO13','user13');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요14','HELLO14','user14');
+INSERT INTO tbl_board(bno,title,content,writer)VALUES(seq_board.NEXTVAL, '안녕하세요15','HELLO15','user15');
+COMMIT;
+
+SELECT
+    *
+FROM tbl_board;
+ORDER BY bno DESC;
+
+SELECT * FROM ( SELECT rownum AS rnum, A.* FROM( SELECT * FROM tbl_board ORDER BY bno DESC 
+) A ) WHERE rnum BETWEEN 1 AND 10 ;
+
+SELECT * FROM ( SELECT rownum AS rnum, A.* FROM( SELECT * FROM tbl_board ORDER BY bno DESC 
+) A ) WHERE rnum BETWEEN 1 AND 10 ;
+DESC tbl_board;
+
+--회원 테이블 
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+userid VARCHAR2(200),
+passpw VARCHAR2(100) NOT NULL,
+name VARCHAR2(100) UNIQUE NOT NULL,
+join_date DATE DEFAULT SYSDATE
+);
+ALTER TABLE tbl_member
+ADD CONSTRAINT pk_member PRIMARY KEY(userid);
+SELECT
+    *
+FROM tbl_member;
+
+INSERT INTO tbl_member(userid,passpw,name)VALUES('admin', '1234','관리자');
+INSERT INTO tbl_member(userid,passpw,name)VALUES('cally91@naver.com', '1234','이름');
+INSERT INTO tbl_member(userid,passpw,name)VALUES('cally9176@gmail.com', '1234','이동현');
+commit;
