@@ -31,5 +31,9 @@ public class MemberController {
 		}
 		return flag;
 	}
-
+	@PostMapping(value = "logout")
+	@ResponseBody
+	public void logOut(HttpSession httpSession) {
+		mServier.logOut(httpSession);
+	}
 }

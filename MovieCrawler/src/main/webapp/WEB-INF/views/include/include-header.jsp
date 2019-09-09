@@ -95,8 +95,9 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 			</c:when>
 
 			<c:otherwise>
-				<li><a href="">${userid}</a></li>
-				<li><a href="">로그아웃</a></li>
+				<li ><a href="">${name}님</a></li>
+				<li id="logout_btn"><a href="">로그아웃</a></li>
+				<li><a href="">마이페이지</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>
@@ -237,6 +238,18 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 						}
 					});
 				})
-
-	})
+				$('#logout_btn').click(function() {
+					$.ajax({
+						url:"${path}/member/logout",
+						type:"POST",
+						asyns: true,
+						success: function() {
+							location.reload();
+						},
+						error : function() {
+							alert("System Error o0o")
+						}
+					})
+				});
+	});
 </script>

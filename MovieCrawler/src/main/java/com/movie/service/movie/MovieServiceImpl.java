@@ -57,6 +57,7 @@ public class MovieServiceImpl implements MovieService {
 			String imgSrc = naverImg.get(i).attr("src"); // 포스터 이미지
 			Double naverScore = Double.parseDouble(scoreList.get(i).select("span.num").first().text());
 			String bookingrate = scoreList.get(i).select("span.num").last().text();
+			
 			// 다음영화코드
 			String daumhref = daumMovie.get(i).attr("href");
 			Document detailMovie =Jsoup.connect(daumhref).get();

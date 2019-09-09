@@ -64,7 +64,7 @@ button.bz-btn.update {
 }
 
 /* 공통 hover */
-button.bz-btn:hover {
+button.bz-btn:hover  {
 	background-color: white;
 	color:blue;
 	font-weight:bold;

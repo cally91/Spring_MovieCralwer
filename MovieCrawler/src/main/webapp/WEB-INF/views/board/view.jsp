@@ -13,10 +13,13 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=20190906">
-	<link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/button.css?ver=20190906">
+	href="${path}/resources/css/view.css?ver=2019090901">
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/button.css?ver=2019090901">
 <title>Insert title here</title>
+<style type="text/css">
+
+</style>
 </head>
 <body>
 	<%@ include file="../include/include-header.jsp"%>
@@ -48,11 +51,33 @@
 
 		</table>
 		<div class="btn-box center">
-			<button class="bz-btn  list">목록 </button>
-			<button class="bz-btn update">수정</button>
-			<button id="btn-delete" class="bz-btn delete">삭제</button>
-			<button id="btn-reply" class="bz-btn save">답글</button>
+			<button class="bz-btn  list">목록</button>
+			<c:if test="${sessionScope.name ==one.writer}">
+				<button class="bz-btn update">수정</button>
+				<button id="btn-delete" class="bz-btn delete">삭제</button>
+				<button id="btn-reply" class="bz-btn save">답글</button>
+			</c:if>
+		</div>
+		<div id="reply_wrap">
+			<div id="commentlist">
+				<div class="reply_comment_card">
+					<div>작성자 : ${sessionScope.name}</div>
+					<input type="text" id="reply_comment" class="reply_comment_style" placeholder="댓글을 입력하세요">
+				</div><br/>
+
+				<div class="reply_comment_card">
+					<div class="">
+						작성자: <span>내용</span>
+						<div>작성일:</div>
+						 
+					</div>
+					
+				</div>
+			</div>
 		</div>
 	</div>
+
+
 </body>
+
 </html>

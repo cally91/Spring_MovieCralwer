@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="movie">
+	<insert id="write" parameterType="com.movie.domain.movie.MovieDTO">
+		INSERT INTO tbl_movie
+		VALUES(#{rank}, #{movie}, #{imgsrc}, #{type}, #{opendate}, #{bookingrate}, #{runtime}, #{director}, #{actor}, #{navercode}, #{naverscore}, #{daumcode}, #{daumscore})
+	</insert>
+	
+	<select id="list" resultType="com.movie.domain.movie.MovieDTO">
+		SELECT rank, movie, imgsrc, type, opendate, bookingrate, runtime, director, actor, navercode, naverscore, daumcode, daumscore, round((naverscore+daumscore)/2,1) as score 
+		FROM tbl_movie
+		<if test="sort == 'booking'">
+			ORDER BY rank, score DESC
+		</if>
+		<if test="sort == 'score'">
+			ORDER BY score DESC, rank	
+		</if>
+		<if test="sort == 'date'">
+			ORDER BY opendate DESC, score DESC
+		</if>
+		
+		
+	</select>
+	<delete id="deleteAll">
+		DELETE FROM tbl_movie
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
