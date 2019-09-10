@@ -28,6 +28,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAll">
 		DELETE FROM tbl_movie
 	</delete>
+		<insert id="review"
+		parameterType="com.movie.domain.text.ReviewDTO">
+		INSERT INTO tbl_cinema
+		VALUES(seq_cinema.NEXTVAL, #{movie},
+		#{grade}, #{review}, #{writer}, #{reviewdate})
+	</insert>
 </mapper>
 
 

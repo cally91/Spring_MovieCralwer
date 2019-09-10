@@ -13,15 +13,14 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=2019090901">
+	href="${path}/resources/css/view.css?ver=2019091004">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/button.css?ver=2019090901">
+	href="${path}/resources/css/button.css?ver=2019091001">
 <title>Insert title here</title>
-<style type="text/css">
 
-</style>
 </head>
 <body>
+
 	<%@ include file="../include/include-header.jsp"%>
 
 	<div class="body-1">
@@ -51,33 +50,41 @@
 
 		</table>
 		<div class="btn-box center">
-			<button class="bz-btn  list">목록</button>
+			<a href="${path}/board/list"><button class="bz-btn  list">
+					목록</button></a>
 			<c:if test="${sessionScope.name ==one.writer}">
 				<button class="bz-btn update">수정</button>
 				<button id="btn-delete" class="bz-btn delete">삭제</button>
 				<button id="btn-reply" class="bz-btn save">답글</button>
 			</c:if>
 		</div>
-		<div id="reply_wrap">
-			<div id="commentlist">
-				<div class="reply_comment_card">
-					<div>작성자 : ${sessionScope.name}</div>
-					<input type="text" id="reply_comment" class="reply_comment_style" placeholder="댓글을 입력하세요">
-				</div><br/>
 
-				<div class="reply_comment_card">
-					<div class="">
-						작성자: <span>내용</span>
-						<div>작성일:</div>
-						 
-					</div>
-					
-				</div>
-			</div>
+		<div id="reply_wrap">
+			<div id="commentList"></div>
 		</div>
 	</div>
-
-
 </body>
+<script>
+	$(function() {
+		function comment_list() {
+			$.ajax({
+				type : "get",
+				url : "${path}/reply/list?bno=${one.bno}",
+				success : function(page) {
+					$('#commentList').html(page);
+				}
+			});
+		}
+		$(document).ready(function() {
+			comment_list();
+		})
+		/* View.jsp에서 commenlist.jsp의 태그 이벤트 처리 할때 사용*/
+		$(document).on("click", ".btn_comm.delete", function() {
+			var rno = $(".btn_comm.delete").index("${replyList.rno}");
+			alert("rno =" +rno);
+
+		})
+	})
+</script>
 
 </html>

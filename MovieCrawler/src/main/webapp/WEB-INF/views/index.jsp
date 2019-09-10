@@ -94,5 +94,7 @@
 		})
 	</script>
 	<script type="text/javascript" src="${path}/resources/js/header.js"></script>
+	
 </body>
+<%@ include file="./include/include-footer.jsp"%>
 </html>

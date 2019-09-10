@@ -8,9 +8,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.movie.service.movie.MovieService;
+import com.movie.service.text.ReviewService;
 
 import lombok.extern.slf4j.Slf4j;
-
 
 @Slf4j
 @Component
@@ -18,13 +18,16 @@ public class Scheduler {
 
 	@Inject
 	MovieService mService;
-	
-	@Scheduled(cron = "0 00 12 * * *")
+
+	@Inject
+	ReviewService rService;
+
+	@Scheduled(cron = "0 0 10 * * *")
 	public void movieCollect() throws IOException {
-		
-			mService.ticketRank();
-		
-		
+
+		mService.ticketRank();
+		rService.ticketRank();
+
 	}
-	
+
 }
