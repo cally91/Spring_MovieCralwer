@@ -9,13 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countArticle" resultType="int">
 		SELECT COUNT(*)
 		FROM tbl_board
-		<include refid="search"/>
+		<include refid="search" />
 	</select>
-	
+
 	<sql id="search">
 		<choose>
 			<when test="search_option != 'all'">
-			<if test="search_option == 'title'">
+				<if test="search_option == 'title'">
 					WHERE title LIKE #{keyword}
 				</if>
 				<if test="search_option == 'writer'">
@@ -27,45 +27,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 			<otherwise>
 				WHERE writer LIKE #{keyword}
-					OR title LIKE #{keyword}
-					OR content LIKE #{keyword}
+				OR title LIKE #{keyword}
+				OR content LIKE #{keyword}
 			</otherwise>
 		</choose>
-	
+
 	</sql>
-	
+
 	<!-- 게시글 목록 출력 -->
-	
-	<select id="listAll" resultType="com.movie.domain.board.BoardDTO">
-	<include refid="paging_header"/>
-	SELECT *
-	FROM tbl_board
-	<include refid="search"/>
-	<if test="sort_option == 'new'">
-		ORDER BY bno DESC
-	</if>
-	<if test="sort_option == 'reply'">
-		ORDER BY replycnt DESC, bno DESC
-	</if>
-	<if test="sort_option == 'view'">
-		ORDER BY viewcnt DESC, bno DESC
-	</if>
-	<include refid="paging_footer"/>
+
+	<select id="listAll"
+		resultType="com.movie.domain.board.BoardDTO">
+		<include refid="paging_header" />
+		SELECT *
+		FROM tbl_board
+		<include refid="search" />
+		<if test="sort_option == 'new'">
+			ORDER BY bno DESC
+		</if>
+		<if test="sort_option == 'reply'">
+			ORDER BY replycnt DESC, bno DESC
+		</if>
+		<if test="sort_option == 'view'">
+			ORDER BY viewcnt DESC, bno DESC
+		</if>
+		<include refid="paging_footer" />
 	</select>
-	
+
 	<sql id="paging_header">
-	SELECT *
-	FROM (
+		SELECT *
+		FROM (
 		SELECT rownum AS rnum, A.*
 		FROM (
 	</sql>
 	<sql id="paging_footer">
 		) A
-	) WHERE rnum BETWEEN #{start} AND #{end}
+		) WHERE rnum BETWEEN #{start} AND #{end}
 	</sql>
 	<select id="read" resultType="com.movie.domain.board.BoardDTO">
-	SELECT * FROM tbl_board
-	WHERE bno =#{bno}
+		SELECT * FROM tbl_board
+		WHERE bno =#{bno}
 	</select>
+	<!--  <update id="increaseReplyCnt" parameterType="int">
+		UPDATE tbl_board
+		SET replycnt = replycnt+1
+		WHERE bno = #{bno}
+	</update>
+	<update id="deleteCnt" parameterType="int">
+		UPDATE tbl_board
+		SET replycnt = replycnt-1
+		WHERE bno = #{bno}
+	</update>
+	 -->
+	<update id="updateCnt" parameterType="int">
+		UPDATE tbl_board
+		<if test="yesmap == 1">
+		SET replycnt = replycnt+1
+		</if>
+		<if test="yesmap == -1">
+		SET replycnt = replycnt-1
+		</if>
+		WHERE bno = #{bno}
+	</update>
 </mapper>
 

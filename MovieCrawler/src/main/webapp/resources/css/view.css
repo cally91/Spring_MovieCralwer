@@ -34,8 +34,8 @@ span.reply_comment_day{
 h3.reply_comment_h3{
 	border-bottom: 1px solid #f4f5f9;
 }
-input.reply_comment_style {
-	width: 100%;
+textarea.reply_comment_style {
+	width: 99%;
 	height: 100px;
 	margin: 0 auto;
 }

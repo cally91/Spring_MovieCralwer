@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.movie.domain.board.ReplyDTO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class ReplyDAOImpl implements ReplyDAO{
 
@@ -17,20 +20,22 @@ public class ReplyDAOImpl implements ReplyDAO{
 	
 	@Override
 	public List<ReplyDTO> list(int bno) {
-		// TODO Auto-generated method stub
+		
 		return   sqlSession.selectList("reply.list",bno);
 	}
 
 	@Override
-	public void write(ReplyDTO bDto) {
-		// TODO Auto-generated method stub
+	public void write(ReplyDTO rDto) {
+		log.info("write="+rDto);
+		sqlSession.insert("reply.lnsert",rDto);
 		
 	}
 
 	@Override
-	public void delete(ReplyDTO bDto) {
-		// TODO Auto-generated method stub
+	public void delete(ReplyDTO rDto) {
+		sqlSession.delete("reply.delete",rDto);
 		
 	}
+
 
 }

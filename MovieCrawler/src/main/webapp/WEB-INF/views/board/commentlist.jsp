@@ -25,6 +25,12 @@
 .not_reply_comment {
 	
 }
+
+.reply_comment_style {
+	width: 99%;
+	height: 100px;
+	margin: 0 auto;
+}
 </style>
 </head>
 <body>
@@ -32,16 +38,39 @@
 	<c:if test="${sessionScope.name == sessionScope.userid}">
 		<h2 class="reply_comment_header">로그인한후 댓글창이나옵니다.</h2>
 	</c:if>
+	
 	<c:if test="${sessionScope.name != sessionScope.userid}">
-		<div class="reply_comment_header">
-			<div class="reply_comment_name">
-				작성자 : ${sessionScope.name} <span> 작성일: 2019-09-10 </span>
+		<form action="replyAdd.fcryan" method="POST" name="frm_reply" id="frm_reply">
+			<div class="reply_comment_header">
+				<div class="reply_comment_name">
+					작성자 : ${sessionScope.name} <span> 작성일: 2019-09-10 </span>
+				</div>
+				<textarea name="content" id="reply_comment" class="reply_comment_style"
+					placeholder="댓글을 입력하세요"></textarea>
+				<script type="text/javascript"
+					src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js"
+					charset="utf-8"></script>
+				<script type="text/javascript">
+					var oEditors = [];
+					nhn.husky.EZCreator
+							.createInIFrame({
+								oAppRef : oEditors,
+								elPlaceHolder : "reply_comment",
+								sSkinURI : "${path}/resources/smarteditor/SmartEditor2Skin.html",
+								fCreator : "createSEditor2",
+								htParams : {
+									fOnBeforeUnload : function() {
+									}
+								}
+							});
+				</script>
+
+
+				<button type="button" id="bz-btn_comment" class="bz-btn comment">등록</button>
 			</div>
-			<input type="text" id="reply_comment" class="reply_comment_style"
-				placeholder="댓글을 입력하세요">
-			<button class="bz-btn comment">등록</button>
-		</div>
-		<br />
+			<br />
+			<input type="hidden" id="re_bno" name="bno"> 
+		</form>
 	</c:if>
 
 	<c:choose>
@@ -56,7 +85,7 @@
 					<c:if test="${sessionScope.name ==replyView.writer}">
 						<button class="btn_re">답글</button>
 						<button class="btn_comm updata">수정</button>
-						<button class="btn_comm delete">삭제</button>
+						<button class="btn_comm delete" data_num="${replyView.rno}">삭제</button>
 					</c:if>
 				</div>
 			</c:forEach>

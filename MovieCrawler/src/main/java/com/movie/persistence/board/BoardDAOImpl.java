@@ -57,4 +57,28 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectOne("board.countArticle", map);
 	}
 
+	
+
+	@Override
+	public void updateCnt(int bno, int yesmap) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bno",bno);
+		map.put("yesmap",yesmap);
+		sqlSession.update("board.updateCnt",map);
+		
+	}
+
+	@Override
+	public void deleteCnt(int bno) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void increaseReplyCnt(int bno, int yesmap) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

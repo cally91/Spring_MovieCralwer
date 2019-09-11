@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=2019091004">
+	href="${path}/resources/css/view.css?ver=2019091101">
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/button.css?ver=2019091001">
 <title>Insert title here</title>
@@ -80,10 +80,49 @@
 		})
 		/* View.jsp에서 commenlist.jsp의 태그 이벤트 처리 할때 사용*/
 		$(document).on("click", ".btn_comm.delete", function() {
-			var rno = $(".btn_comm.delete").index("${replyList.rno}");
-			alert("rno =" +rno);
+			var rno = $(this).attr("data_num");
+			var bno = '${one.bno}';
+			$.ajax({
+				url : "${path}/reply/delete",
+				data : "rno=" + rno + "&bno=" + bno,
+				success : function(result) {
+					comment_list();
+				},
+				error : function() {
+					alert("System error o0o");
+				}
+
+			})
 
 		})
+		$(document).on("click",".bz-btn.comment",function() {
+							oEditors.getById["reply_comment"].exec("UPDATE_CONTENTS_FIELD", []);
+							var context = $('#reply_comment').val()
+							var text = context.replace(/[<][^>]*[>]/gi, "");
+							if (text == null || text == "") {
+								$("#reply_comment").focus();
+								$(".error").css("display", "biock");
+								return false;
+							} else {
+								var bno = '${one.bno}';
+								$("#re_bno").val(bno);
+								$
+										.ajax({
+											url : "${path}/reply/write",
+											type : "POST",
+											data : $("#frm_reply").serialize(),
+											contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+											success : function() {
+												comment_list();
+												$("#reply_comment").val("");
+											},
+											error : function() {
+												alert("System error o0o");
+
+											}
+										})
+							}
+						})
 	})
 </script>
 
