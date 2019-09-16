@@ -3,6 +3,8 @@ package com.movie.service.board;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.movie.domain.board.BoardDTO;
 
 public interface BoardService {
@@ -10,7 +12,7 @@ public interface BoardService {
 	public void write(BoardDTO bDto); // 게시글 등록
 	public void update(BoardDTO bDto); // 게시글 수정
 	public void delete(int bno); // 게시글 삭제
-	public BoardDTO read(int bno); // 상세게시글(1건)
+	public BoardDTO read(int bno, HttpSession httpSession); // 상세게시글(1건)
 
 	// 게시글 조회시 필요한 메서드(페이지네이션)
 	

@@ -20,6 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void write(BoardDTO bDto) {
 		// TODO Auto-generated method stub
+		sqlSession.insert("board.insert",bDto);
 
 	}
 
@@ -78,6 +79,13 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void increaseReplyCnt(int bno, int yesmap) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void increaseCnt(int bno) {
+		// TODO Auto-generated method stub
+		sqlSession.update("board.increaseCnt",bno);
 		
 	}
 	

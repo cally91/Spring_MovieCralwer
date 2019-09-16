@@ -57,31 +57,38 @@ td {
 td.td-1 {
 	table-layout: fixed;
 	width: 3%;
+	background-color: orange;
 }
 
 td.td-2 {
 	table-layout: fixed;
 	width: 50%;
+	background-color: orange;
 }
 td.td-3 {
 	table-layout: fixed;
 	width: 5%;
+	background-color: orange;
 }
 td.td-4 {
 	table-layout: fixed;
 	width: 5%;
+	background-color: orange;
 }
 td.td-5 {
 	table-layout: fixed;
 	width: 5%;
+	background-color: orange;
 }
 td.td-6 {
 	table-layout: fixed;
 	width: 7%;
+	background-color: orange;
 }
 td.td-7 {
 	table-layout: fixed;
 	width: 25%;
+	background-color: orange;
 }
 div.table {
     position: relative;

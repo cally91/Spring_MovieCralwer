@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/include.jsp"%>
-
+<%
+	String message = request.getParameter("message");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/album.css?ver=2019090303">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/common.css?ver=2019091001">
+	href="${path}/resources/css/common.css?ver=20190916">
 <title>커뮤니티</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -56,7 +58,7 @@
 				<option value="content">내용</option>
 				<option value="writer">작성자</option>
 			</select> <input type="text" id="search_board" placeholder="검색할 값을 입력하세요">
-			<button onclick="search_board()" class="btn_search" id="search_btn" >검색</button>
+			<button onclick="search_board()" class="btn_search" id="search_btn">검색</button>
 		</div>
 		<table>
 			<tr>
@@ -142,7 +144,7 @@
 			</ul>
 		</div>
 		<div class="button-input">
-			<button>게시글 등록</button>
+			<button id="write">게시글 등록</button>
 			<button id="re">처음으로</button>
 		</div>
 
@@ -182,16 +184,25 @@
 			$('#re').click(function() {
 				location.href = "${path}/board/list";
 			});
-			 $(document).ready(function() {
-		            $("#search_board").keydown(function(key) {
-		                if (key.keyCode == 13) {
-		                	$("#search_btn").click();
-		                }
-		            });
-		        });
-
+			$('#write').click(function() {
+				location.href = "${path}/board/write";
+			});
+			$(document).ready(function() {
+				$("#search_board").keydown(function(key) {
+					if (key.keyCode == 13) {
+						$("#search_btn").click();
+					}
+				});
+			});
 
 		});
+		// 조회수보존(뒤로가기)
+		window.onpageshow = function(event) {
+			if (event.persisted
+					|| (window.performance && window.performance.navigation.type == 2)) {
+				location.reload();
+			}
+		}
 	</script>
 </body>
 <%@ include file="../include/include-footer.jsp"%>

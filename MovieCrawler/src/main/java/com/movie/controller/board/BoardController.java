@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,11 @@ public class BoardController {
 
 	@Inject
 	BoardService bService;
+	
+	@GetMapping(value = "write")
+	public String write() {
+		return "board/write";
+	}
 	
 	
 	@GetMapping(value = "list")
@@ -68,12 +75,12 @@ public class BoardController {
 	}
 	
 	@GetMapping("view")
-	public String view(int bno,Model model) {
+	public String view(int bno,Model model,HttpSession httpSession) {
 		// 가방
 		// 값을 한개만 담고 싶다 => 변수
 		// 값을 여러개해서 1줄을 담고 싶다 => DTO
 		// 값을 여러줄 담고 싶다. => List
-		BoardDTO dDto = bService.read(bno);
+		BoardDTO dDto = bService.read(bno, httpSession);
 		model.addAttribute("one",dDto);
 		return "board/view";
 	}

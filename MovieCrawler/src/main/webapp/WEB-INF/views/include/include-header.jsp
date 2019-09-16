@@ -90,7 +90,7 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 
 		<c:choose>
 			<c:when test="${empty sessionScope.name}">
-				<li><a href="#" id="login" class="a-menu">로그인</a></li>
+				<li><a href="#" id="login" class="a-login">로그인</a></li>
 				<li><a href="#" id="join" class="a-menu">회원가입</a></li>
 			</c:when>
 
@@ -171,7 +171,12 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 </div>
 <script>
 	$(function() {
-
+		var msg = '${message}'; // 로그인 유무
+		var uri ='${uri}';
+		if (msg == 'nologin'){
+				$('#modal-box').css('display', 'block')
+				$('.err_msg_id').css('display', 'block').text('로그인이 필요합니다.')
+			}
 		$("#login").click(function() {
 			$("#modal-box").css('display', 'block')
 		})
@@ -185,12 +190,25 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 			$(".userid").val("");
 			$(".passpw").val("");
 		})
+		//로그인 버튼(엔터)
+		$(document).ready(function() {
+			$(".userid").keydown(function(key) {
+				if (key.keyCode == 13) {
+					$(".btn-login").click();
+				}
+			});
+				$(".passpw").keydown(function(key) {
+					if (key.keyCode == 13) {
+						$(".btn-login").click();
+					}
+				});
+			});
+		// 로그인 에러
 		$(".btn-login").click(
 				function() {
 					var userid = $.trim($(".userid").val());
 					var passpw = $.trim($(".passpw").val());
 					var regEmpty = /\s/g;
-					alert(userid + "," + passpw);
 
 					if (userid == '' || userid.length == 0) {
 						$('.err_msg_id').text(' 필수입력정보입니다.').css(
@@ -223,7 +241,12 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 						data : "userid=" + userid + "&passpw=" + passpw,
 						success : function(data) {
 							if (data == "1") {
+								if(uri ==""){
 								location.reload();
+								} else {
+									location.href=uri;	
+								}
+								
 							} else if (data == "-1") {
 								$('#input_id').focus();
 								$('.err_msg').text('회원 아이디 또는 비밀번호가 일치하지않습니다')

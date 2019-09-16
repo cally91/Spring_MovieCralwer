@@ -11,7 +11,8 @@ div.btn-box.center {
 }
 div.btn-box.right {
 	justify-content:flex-end;
-	
+	margin-top: 0px;
+	margin-right:200px;	
 }
 
 /* 버튼의 크기와 여백 등 공통부분 지정 */

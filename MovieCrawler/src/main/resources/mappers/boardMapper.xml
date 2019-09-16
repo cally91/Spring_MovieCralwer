@@ -28,7 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<otherwise>
 				WHERE writer LIKE #{keyword}
 				OR title LIKE #{keyword}
-				OR content LIKE #{keyword}
+				OR
+				content LIKE #{keyword}
 			</otherwise>
 		</choose>
 
@@ -66,27 +67,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	<select id="read" resultType="com.movie.domain.board.BoardDTO">
 		SELECT * FROM tbl_board
-		WHERE bno =#{bno}
+		WHERE bno
+		=#{bno}
 	</select>
-	<!--  <update id="increaseReplyCnt" parameterType="int">
-		UPDATE tbl_board
-		SET replycnt = replycnt+1
-		WHERE bno = #{bno}
-	</update>
-	<update id="deleteCnt" parameterType="int">
-		UPDATE tbl_board
-		SET replycnt = replycnt-1
-		WHERE bno = #{bno}
-	</update>
-	 -->
+	<!-- <update id="increaseReplyCnt" parameterType="int"> UPDATE tbl_board 
+		SET replycnt = replycnt+1 WHERE bno = #{bno} </update> <update id="deleteCnt" 
+		parameterType="int"> UPDATE tbl_board SET replycnt = replycnt-1 WHERE bno 
+		= #{bno} </update> -->
 	<update id="updateCnt" parameterType="int">
 		UPDATE tbl_board
 		<if test="yesmap == 1">
-		SET replycnt = replycnt+1
+			SET replycnt = replycnt+1
 		</if>
 		<if test="yesmap == -1">
-		SET replycnt = replycnt-1
+			SET replycnt = replycnt-1
 		</if>
+		WHERE bno = #{bno}
+	</update>
+	<!-- 조회수 증가 -->
+	<update id="increaseCnt" parameterType="int">
+		UPDATE tbl_board
+		SET viewcnt = viewcnt +1
 		WHERE bno = #{bno}
 	</update>
 </mapper>

@@ -12,6 +12,8 @@ public interface BoardDAO {
 	public void update(BoardDTO bDto); // 게시글 수정
 	public void delete(int bno); // 게시글 삭제
 	public BoardDTO read(int bno); // 상세게시글(1건)
+	//조회수 증가 처리
+	public void increaseCnt(int bno);
 
 	public void deleteCnt(int bno);
 	public void increaseReplyCnt(int bno, int yesmap);

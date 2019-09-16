@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/include.jsp"%>
+<%
+	String referer = request.getHeader("referer");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +69,7 @@
 </body>
 <script>
 	$(function() {
+
 		function comment_list() {
 			$.ajax({
 				type : "get",
@@ -95,8 +99,13 @@
 			})
 
 		})
-		$(document).on("click",".bz-btn.comment",function() {
-							oEditors.getById["reply_comment"].exec("UPDATE_CONTENTS_FIELD", []);
+		$(document)
+				.on(
+						"click",
+						".bz-btn.comment",
+						function() {
+							oEditors.getById["reply_comment"].exec(
+									"UPDATE_CONTENTS_FIELD", []);
 							var context = $('#reply_comment').val()
 							var text = context.replace(/[<][^>]*[>]/gi, "");
 							if (text == null || text == "") {
@@ -123,6 +132,7 @@
 										})
 							}
 						})
+
 	})
 </script>
 
