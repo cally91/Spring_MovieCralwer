@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,5 +36,9 @@ public class MemberController {
 	@ResponseBody
 	public void logOut(HttpSession httpSession) {
 		mServier.logOut(httpSession);
+	}
+	@GetMapping(value = "write")
+	public void write() {
+		
 	}
 }

@@ -83,8 +83,7 @@ height: 20px;
 					<c:forEach items="${map.list}" var="bDTO">
 						<jsp:useBean id="now" class="java.util.Date" />
 						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
-						<fmt:formatDate value="${bDTO.regdate}" pattern="yyyy-MM-dd"
-							var="regdate" />
+						<fmt:formatDate value="${bDTO.regdate}" pattern="yyyy-MM-dd" var="regdate" />
 						<tr>
 							<td>${bDTO.bno}</td>
 							<td><c:choose>

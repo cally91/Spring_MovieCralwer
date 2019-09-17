@@ -90,7 +90,7 @@ button.button_delete:hover {
 		<h1>커뮤니티 게시판</h1>
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd"
-			var="regdate" />
+			var="date" />
 		<table>
 			<tr>
 				<th class="th-1">제목</th>
@@ -98,7 +98,7 @@ button.button_delete:hover {
 			</tr>
 			<tr>
 				<th>작성일</th>
-				<td>${regdate}</td>
+				<td>${date}</td>
 				<th class="th-1">작성자</th>
 				<td>${one.writer}</td>
 			</tr>

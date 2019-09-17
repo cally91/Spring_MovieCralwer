@@ -130,45 +130,6 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 	</div>
 </div>
 
-<div id="modal-join">
-	<div class="modal-body">
-		<div class="modal-header">
-			회원가입<span class="close" style="float: right; cursor: pointer">&times;</span>
-		</div>
-		<div class="modal-content">
-			<form action="${rootPath}/member/join" method="POST">
-				<div class="in-box">
-					<label for="m_userid" class="join-label">회원아이디</label> <input
-						type="text" name="m_userid" id="m_userid"><br /> <span
-						id="check_id"></span>
-				</div>
-				<div class="in-box">
-					<label for="m_password" class="join-label">비밀번호</label> <input
-						type="password" name="m_password" id="m_password">
-				</div>
-				<div class="in-box">
-					<label for="m_re_password" class="join-label">비밀번호확인</label> <input
-						type="password" name="m_re_password" id="m_re_password">
-				</div>
-				<div class="in-box">
-					<label for="m_name" class="join-label">회원이름</label> <input
-						type="text" name="m_name" id="m_name">
-				</div>
-				<div class="in-box">
-					<label for="m_email" class="join-label">이메일</label> <input
-						type="text" name="m_email" id="m_email">
-				</div>
-				<div class="in-box">
-					<label for="m_tel" class="join-label">전화번호</label> <input
-						type="text" name="m_tel" id="m_tel">
-				</div>
-				<div class="btn-box center">
-					<button id="btn-join" type="button" class="bz-btn save">회원가입</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 <script>
 	$(function() {
 		var msg = '${message}'; // 로그인 유무
@@ -179,9 +140,6 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 			}
 		$("#login").click(function() {
 			$("#modal-box").css('display', 'block')
-		})
-		$("#join").click(function() {
-			$("#modal-join").css('display', 'block')
 		})
 		$(".close").click(function() {
 			$("#modal-box").css("display", "none")
@@ -274,5 +232,8 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 						}
 					})
 				});
+		$(document).on("click", "#join", function() {
+			location.href = "${path}/member/write";
+		})
 	});
 </script>
