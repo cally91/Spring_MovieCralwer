@@ -37,13 +37,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewDTO> ticketRank() throws IOException {
 
 		List<ReviewDTO> reviewDTO = new ArrayList<ReviewDTO>();
-		String movieUrl = "https://movie.naver.com/movie/bi/mi/basic.nhn?code=187366";
-		reviewUrl = "https://movie.naver.com/movie/bi/mi/pointWriteFormList.nhn?code=187366&type=after&isActualPointWriteExecute=false&isMileageSubscriptionAlready=false&isMileageSubscriptionReject=false&page=";
+		String movieUrl = "https://movie.naver.com/movie/bi/mi/basic.nhn?code=177909";
+		reviewUrl = "https://movie.naver.com/movie/bi/mi/pointWriteFormList.nhn?code=177909&type=after&isActualPointWriteExecute=false&isMileageSubscriptionAlready=false&isMileageSubscriptionReject=false&page=";
 		url = reviewUrl + page;
 		
 		Document movieDoc = Jsoup.connect(movieUrl).get();
 		Elements movieName = movieDoc.select(" div.mv_info_area > div.mv_info > h3.h_movie >a");
 		String  movie = movieName.get(0).text();
+		rDao.deleteAll();
 		 while (page<10) {
 			Document reviewDoc = Jsoup.connect(url).get();
 			Elements reviewList = reviewDoc.select("div.score_result  li");

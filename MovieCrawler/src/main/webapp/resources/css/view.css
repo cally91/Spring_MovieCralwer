@@ -53,8 +53,9 @@ td {
 }
 
 td.content {
-	padding-top: 10px;
-	padding-bottom: 10px;
+	vertical-align: super;
+	height: 500px;
+	
 }
 
 th.th-1 {

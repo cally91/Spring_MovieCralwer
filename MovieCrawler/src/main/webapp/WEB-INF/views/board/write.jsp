@@ -38,6 +38,7 @@ input.write_in {
 </head>
 <body>
 	<%@ include file="../include/include-header.jsp"%>
+	<form action="" method="post" id="ref_commit">
 	<table class="write">
 		<tr>
 			<th class="write_label">작성자:</th>
@@ -45,11 +46,11 @@ input.write_in {
 		</tr>
 		<tr>
 			<th class="write_label">제목:</th>
-			<td><input type="text" class="write_in" /></td>
+			<td><input type="text" name="title" class="write_in" value="${one.title}" /></td>
 		</tr>
 		<tr>
-			<td colspan="2"><textarea name="content" id="reply_comment"
-					class="reply_comment_style" placeholder="댓글을 입력하세요"></textarea> <script
+			<td colspan="2"><textarea name="content" id="board_comment"
+					class="reply_comment_style" placeholder="댓글을 입력하세요" >${one.content}</textarea> <script
 					type="text/javascript"
 					src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js"
 					charset="utf-8"></script> <script type="text/javascript">
@@ -57,7 +58,7 @@ input.write_in {
 						nhn.husky.EZCreator
 								.createInIFrame({
 									oAppRef : oEditors,
-									elPlaceHolder : "reply_comment",
+									elPlaceHolder : "board_comment",
 									sSkinURI : "${path}/resources/smarteditor/SmartEditor2Skin.html",
 									fCreator : "createSEditor2",
 									htParams : {
@@ -68,15 +69,39 @@ input.write_in {
 					</script></td>
 		</tr>
 	</table>
+	</form>
 	<div class="btn-box right">
-		<button class="bz-btn save" id= "btn-save">저장</button>
+		<button class="bz-btn save" id="btn-save">게시글 등록</button>
 	</div>
 </body>
 <script type="text/javascript">
-$(function() {
-	$('#btn-save').click(function() {
-		location.href = "${path}/board/list";
-	});
-})
+	$(function() {
+		$("#btn-save").click(function() {
+				oEditors.getById["board_comment"].exec(
+									"UPDATE_CONTENTS_FIELD", []);
+							var context = $('#board_comment').val()
+							var text = context.replace(/[<][^>]*[>]/gi, "");
+							if (text == null || text == "") {
+								$("#board_comment").focus();
+								$(".error").css("display", "biock");
+								return false;
+							} else {
+							$('#ref_commit').submit();
+							}
+						})
+						$(document).ready(function() {
+							var bno ="${one.bno}"
+								if(bno==''){
+									
+								}else{
+									$(".bz-btn.save").css("background-color","red").css("border","1px solid red")
+									.text("게시글 수정");
+									var str='';
+									str += "<input type ='hidden' name ='bno' value='"+bno+"'>"
+									$("#ref_commit").append(str);
+								}
+							
+						})
+	})
 </script>
 </html>

@@ -4,4 +4,5 @@ import com.movie.domain.text.ReviewDTO;
 
 public interface ReviewDAO {
 	public void write(ReviewDTO rDto);
+	public void deleteAll();
 }

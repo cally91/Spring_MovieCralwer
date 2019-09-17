@@ -12,9 +12,9 @@
 <title>무비크롤링</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/main.css?ver=2019090302">
+	href="${path}/resources/css/main.css?ver=20190917">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/album.css?ver=2019090305">
+	href="${path}/resources/css/album.css?ver=20190917">
 	<link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090301">
 	

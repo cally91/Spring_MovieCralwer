@@ -16,20 +16,81 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=2019091101">
+	href="${path}/resources/css/view.css?ver=20190917">
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/button.css?ver=2019091001">
 <title>Insert title here</title>
+<style type="text/css">
+#modal-delete {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	display: none;
+}
 
+div.detele_modalBox {
+	border-radius: 10px;
+	background-color: white;
+	margin: 400px auto;
+	width: 500px;
+	border: 1px solid black;
+}
+
+div.delete_h1 {
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px; background-color : black;
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	background-color: black;
+}
+
+div.delete_d1 {
+	margin: 20px;
+	text-align: center;
+}
+
+button.button_delete {
+	height: 30px;
+	width: 100px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+button.button_delete.yes {
+	border: 1px solid red;
+	color: white;
+	background-color: red;
+}
+
+button.button_delete.no {
+	border: 1px solid blue;
+	background-color: blue;
+	color: white;
+}
+
+button.button_delete:hover {
+	border: 1px solid blue;
+	background-color: white;
+	color: blue;
+	box-shadow: 10px 10px 10px gray;
+	transition-duration: 0.5s
+}
+</style>
 </head>
 <body>
 
 	<%@ include file="../include/include-header.jsp"%>
-
 	<div class="body-1">
 		<div class="bla"></div>
-
-		<h3>커뮤니티 게시판</h3>
+		<h1>커뮤니티 게시판</h1>
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd"
+			var="regdate" />
 		<table>
 			<tr>
 				<th class="th-1">제목</th>
@@ -37,13 +98,13 @@
 			</tr>
 			<tr>
 				<th>작성일</th>
-				<td>${one.regdate}</td>
+				<td>${regdate}</td>
 				<th class="th-1">작성자</th>
 				<td>${one.writer}</td>
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<td>1651</td>
+				<td>업데이트 예정</td>
 				<th>조회수</th>
 				<td>${one.viewcnt}</td>
 			</tr>
@@ -56,7 +117,7 @@
 			<a href="${path}/board/list"><button class="bz-btn  list">
 					목록</button></a>
 			<c:if test="${sessionScope.name ==one.writer}">
-				<button class="bz-btn update">수정</button>
+				<button id="btn-update" class="bz-btn update">수정</button>
 				<button id="btn-delete" class="bz-btn delete">삭제</button>
 				<button id="btn-reply" class="bz-btn save">답글</button>
 			</c:if>
@@ -66,10 +127,29 @@
 			<div id="commentList"></div>
 		</div>
 	</div>
+
+	<div id="modal-delete">
+		<div class="detele_modalBox">
+			<div class="delete_h1">게시글을 삭제</div>
+			<div class="delete_d1">정말 삭제하겠습니까?</div>
+			<div class="btn-box center">
+				<button id="delete_yes" class="button_delete yes">예</button>
+				<button id="delete_no" class="button_delete no">아니요</button>
+			</div>
+		</div>
+	</div>
 </body>
 <script>
 	$(function() {
-
+		$("#btn-delete").click(function() {
+			$("#modal-delete").css('display', 'block')
+		})
+		$("#delete_no").click(function() {
+			$("#modal-delete").css('display', 'none')
+		})
+		$(document).on("click", "#delete_yes", function() {
+			location.href = "${path}/board/delete?bno=${one.bno}"
+		})
 		function comment_list() {
 			$.ajax({
 				type : "get",
@@ -132,6 +212,9 @@
 										})
 							}
 						})
+		$(document).on("click", "#btn-update", function() {
+			location.href = "${path}/board/write?bno=${one.bno}";
+		})
 
 	})
 </script>

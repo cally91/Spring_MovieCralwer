@@ -48,7 +48,7 @@ public class MovieServiceImpl implements MovieService {
 		
 		
 		// 1~10위까지 영화정보 추출
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 12; i++) {
 			// 순위, 영화제목, 포스터이미지, 네이버영화코드
 			int rank = i+1; // 순위
 			String movie = naverList.get(i).text(); // 영화 제목

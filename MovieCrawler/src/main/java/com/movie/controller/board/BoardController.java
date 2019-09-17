@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,10 +30,28 @@ public class BoardController {
 	BoardService bService;
 	
 	@GetMapping(value = "write")
-	public String write() {
+	public String write(@RequestParam(defaultValue = "0") int bno,Model model,HttpSession httpSession) {
+		if(bno != 0) { //게시글 수정
+			model.addAttribute("one", bService.read(bno));
+			
+		}
 		return "board/write";
 	}
-	
+	@PostMapping(value = "write")
+	public String write(BoardDTO bDto,HttpSession session){
+		log.info("bno:"+bDto.getBno());
+		String name= (String) session.getAttribute("name");
+		bDto.setWriter(name);
+		bService.write(bDto);
+		return"redirect:view?bno="+bDto.getBno();
+		
+		
+	}
+	@GetMapping(value = "delete")
+	public String delete(int bno) {
+		bService.delete(bno);
+		return"redirect:list";
+	}
 	
 	@GetMapping(value = "list")
 	public ModelAndView list(@RequestParam(defaultValue = "1") int curPage,
@@ -70,7 +89,6 @@ public class BoardController {
 		mav.addObject("map",map);
 		
 		mav.setViewName("board/list"); // View단 jsp
-		
 		return mav;
 	}
 	
@@ -80,7 +98,8 @@ public class BoardController {
 		// 값을 한개만 담고 싶다 => 변수
 		// 값을 여러개해서 1줄을 담고 싶다 => DTO
 		// 값을 여러줄 담고 싶다. => List
-		BoardDTO dDto = bService.read(bno, httpSession);
+		bService.increaseCnt(bno, httpSession); //조회수 증가 처리
+		BoardDTO dDto = bService.read(bno); // 상세 게시글 출력
 		model.addAttribute("one",dDto);
 		return "board/view";
 	}

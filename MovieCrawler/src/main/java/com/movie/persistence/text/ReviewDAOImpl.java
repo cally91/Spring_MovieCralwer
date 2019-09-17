@@ -18,5 +18,11 @@ public  class ReviewDAOImpl implements ReviewDAO{
 		
 	}
 
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		sqlSession.delete("movie.deleteAllReview");
+	}
+
 
 }

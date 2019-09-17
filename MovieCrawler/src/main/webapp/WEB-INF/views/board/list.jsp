@@ -12,9 +12,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/main.css?ver=2019090302">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/album.css?ver=2019090303">
-<link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/common.css?ver=20190916">
+	href="${path}/resources/css/common.css?ver=20190917">
 <title>커뮤니티</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -31,6 +29,12 @@
 .btn_search {
 	width: 60px;
 	height: 30px;
+}
+h1{
+margin-top: 100px;
+}
+td{
+height: 20px;
 }
 </style>
 </head>
@@ -85,7 +89,7 @@
 							<td>${bDTO.bno}</td>
 							<td><c:choose>
 									<c:when test="${today == regdate}">
-										<a href="${path}/board/view?bno=${bDTO.bno}">${bDTO.title}</a>
+										<a  class="title" href="${path}/board/view?bno=${bDTO.bno}">${bDTO.title}</a>
 										<span class="new">new</span>
 									</c:when>
 									<c:otherwise>
