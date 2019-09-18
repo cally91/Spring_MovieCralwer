@@ -24,4 +24,10 @@ public class MemberDAOImpl implements MemberDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("member.viewMember",userid);
 	}
+
+	@Override
+	public int idCheck(String id) {
+		// TODO id 중복체크
+		return sqlSession.selectOne("member.idCheck",id);
+	}
 }

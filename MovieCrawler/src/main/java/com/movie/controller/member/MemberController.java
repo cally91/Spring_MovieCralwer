@@ -20,12 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 
 	@Inject
-	MemberService mServier;
+	MemberService mServiece;
 
 	@PostMapping(value = "login")
 	@ResponseBody
 	public String login_check(MemberDTO mDto, HttpSession httpSession) {
-		boolean result = mServier.login(mDto, httpSession);
+		boolean result = mServiece.login(mDto, httpSession);
 		String flag = "-1";
 		if (result) {
 			flag = "1";
@@ -35,10 +35,16 @@ public class MemberController {
 	@PostMapping(value = "logout")
 	@ResponseBody
 	public void logOut(HttpSession httpSession) {
-		mServier.logOut(httpSession);
+		mServiece.logOut(httpSession);
 	}
 	@GetMapping(value = "write")
-	public void write() {
-		
+	public String write() {
+		return "member/write";
+	}
+	@ResponseBody
+	@PostMapping("idcheck")
+	public int idcheck(String id) {
+		log.info("AJEX ID 중복체크 : "+id);
+		return mServiece.idCheck(id);
 	}
 }

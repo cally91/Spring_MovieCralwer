@@ -13,7 +13,7 @@
 	href="${path}/resources/css/main.css?ver=2019090302">
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=20190917">
-<title>커뮤니티</title>
+<title>핀냐무비 : 커뮤니티</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
@@ -34,7 +34,7 @@ h1{
 margin-top: 100px;
 }
 td{
-height: 20px;
+height: 40px;
 }
 </style>
 </head>

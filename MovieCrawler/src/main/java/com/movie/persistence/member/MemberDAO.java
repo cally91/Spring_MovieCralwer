@@ -5,4 +5,5 @@ import com.movie.domain.member.MemberDTO;
 public interface MemberDAO {
 	public boolean loginCheck(MemberDTO mDto);
 	public MemberDTO viewMember(String userid);
+	public int idCheck(String id);
 }

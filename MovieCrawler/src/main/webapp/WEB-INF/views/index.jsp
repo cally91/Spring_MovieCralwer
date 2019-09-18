@@ -9,10 +9,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>무비크롤링</title>
+<title>핀냐무비</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/main.css?ver=2019091701">
+	href="${path}/resources/css/main.css?ver=20190918">
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/album.css?ver=20190917">
 	<link rel="stylesheet" type="text/css"

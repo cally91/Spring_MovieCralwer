@@ -17,4 +17,7 @@ public interface MemberService {
 		public MemberDTO viewMember(String userid);
 		// 비밀번호 수정
 		// 현재 비밀번호 채크
+		
+		//AJAX :ID 중복체크
+		public int idCheck(String id);
 }

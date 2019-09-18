@@ -37,6 +37,12 @@ httpSession.invalidate();
 		 return mDao.viewMember(userid);
 	}
 
+	@Override
+	public int idCheck(String id) {
+		// TODO 아이디 중복체크
+		return mDao.idCheck(id);
+	}
+
 	
 
 }

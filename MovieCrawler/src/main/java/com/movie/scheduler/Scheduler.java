@@ -22,7 +22,7 @@ public class Scheduler {
 	@Inject
 	ReviewService rService;
 
-	@Scheduled(cron = "0 51 13 * * *")
+	@Scheduled(cron = "0 50 12 * * *")
 	public void movieCollect() throws IOException {
 
 		mService.ticketRank();
