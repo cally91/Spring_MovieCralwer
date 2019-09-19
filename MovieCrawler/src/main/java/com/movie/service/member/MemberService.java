@@ -10,7 +10,7 @@ public interface MemberService {
 		//로그아웃
 		public void logOut(HttpSession httpSession);
 		// 회원가입
-		
+		public void write(MemberDTO mDto, HttpSession httpSession) ;
 		// 회원 수정
 		// 회원삭제
 		// 회원 정보 1건 검색

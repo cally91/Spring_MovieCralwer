@@ -18,5 +18,11 @@ public class MemberDTO {
 	private String userid;
 	private String passpw;
 	private String name;
-	private Date join_date;
+	private	String phone; //	varchar2(30 byte)
+	private String email;//	varchar2(50 byte)
+	private String zipcode;//	varchar2(20 byte)
+	private String addr1;//	varchar2(200 byte)
+	private String  addr2;//	varchar2(200 byte)
+	private Date regdate;
+		
 }

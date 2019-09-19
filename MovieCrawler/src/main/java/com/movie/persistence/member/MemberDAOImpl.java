@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.movie.domain.member.MemberDTO;
 
 @Repository
-public class MemberDAOImpl implements MemberDAO{
+public  class MemberDAOImpl implements MemberDAO{
 
 	@Inject
 	SqlSession sqlSession;
@@ -29,5 +29,11 @@ public class MemberDAOImpl implements MemberDAO{
 	public int idCheck(String id) {
 		// TODO id 중복체크
 		return sqlSession.selectOne("member.idCheck",id);
+	}
+
+	@Override
+	public void write(MemberDTO mDto) {
+		// TODO 회원가입
+		sqlSession.insert("member.write",mDto);
 	}
 }

@@ -5,6 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="member">
+	<insert id="write"  parameterType="com.movie.domain.board.BoardDTO">
+	INSERT INTO tbl_member(userid,passpw,name,phone,email,zipcode,addr1,addr2)
+	VALUES(#{userid},#{passpw},#{name},#{phone},#{email},#{zipcode},#{addr1},#{addr2})
+	</insert>
 	<select id="login" resultType="int">
 		SELECT COUNT(*) FROM tbl_member
 		WHERE userid= #{userid} AND passpw= #{passpw}

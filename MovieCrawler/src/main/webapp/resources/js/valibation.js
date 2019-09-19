@@ -134,6 +134,7 @@ var joinValidate = {
 			return this.resultCode.success_pw;
 		}
 	},
+	//이름 유효성 체크
 	checkName : function(name) {
 		var regEmpty = /\s/g;// 공백문자
 		var regLang = /[^a-zA-Z가-힣0-9]/; // 영문,한글
@@ -149,38 +150,41 @@ var joinValidate = {
 			return this.resultCode.success_name;
 		}
 	},
+	// 이메일 유효성 체크
 	checkEmail : function(email, url) {
 		var regEmpty = /\s/g;
-		var regEmail = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._]+\[a-zA-Z]{2,4}$/i);
+		var regEmail = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,4}$/i);
 		if ((email == "") || (email.length == 0)) { // null 채크
 			return this.resultCode.empty_val;
 		} else if (email.match(regEmpty)) {
 			return this.resultCode.space_length_val;// 공백 체크
-		} else if (url != "" || url.length != 0 || url =='') {
+		} else if (url != '' || url.length != 0 || url =='') {
 			var fullMail = email + '@' + url;
-			if (regEmail.test(fullMail)) {
+			if (!regEmail.test(fullMail)) {
 				return this.resultCode.invalid_email;
 			} else {
 				return this.resultCode.success_email;
 			}
 		}
 	},
+	//이메일 URL 유효성 체크
 	checkUrl : function(email, url) {
 		var regEmpty = /\s/g;
-		var regEmail = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._]+\[a-zA-Z]{2,4}$/i);
+		var regEmail = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,4}$/i);
 		if ((url == "") || (url.length == 0)) { // null 채크
 			return this.resultCode.empty_val;
 		} else if (url.match(regEmpty)) {
 			return this.resultCode.space_length_val;// 공백 체크
-		} else if (email != "" || email.length != 0 || email =='') {
+		} else if (email != '' || email.length != 0 || email =='') {
 			var fullMail = email + '@' + url;
-			if (regEmail.test(fullMail)) {
+			if (!regEmail.test(fullMail)) {
 				return this.resultCode.invalid_email;
 			} else {
 				return this.resultCode.success_email;
 			}
 		}
 	},
+	//전화번호 유효성 체크
 	checkPhone : function(phone) {
 		var regEmpty = /\s/g;
 		var regPhone = /(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$/; // 영문,한글
@@ -203,25 +207,29 @@ var joinValidate = {
 
 // AJAX ID 중복 체크
 function ajaxCheck(memId) {
+	var return_val =false;
 	$.ajax({
 		type : "POST",
 		url : "idcheck?id=" + memId,
 		contentType : "application.json",
+		async : false,
 		success : function(data) {
 			if (data == 1) {
 				console.log(data);
 				$("#inputid").next().text('이미 사용중인 아이디입니다').css('display',
 						'block').css('color', '#ff3636')
-				return "overlap";
+						
+						 return_val =false;
 			} else {
 				$("#inputid").next().text('멋진 아이디네요').css('display', 'block')
 						.css('color', '#0000ff')
-				return "ok";
+						return_val =true;
 			}
 		},
 		error : function() {
 			alert("System Error o0o");
 		}
+		
 	})
-
+	return return_val;
 }

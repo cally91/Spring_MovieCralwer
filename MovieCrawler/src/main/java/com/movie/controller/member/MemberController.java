@@ -1,6 +1,7 @@
 package com.movie.controller.member;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,11 @@ public class MemberController {
 	@GetMapping(value = "write")
 	public String write() {
 		return "member/write";
+	}
+	@PostMapping(value = "write")
+	public String write(MemberDTO mDto,HttpSession httpSession) {
+		mServiece.write(mDto, httpSession);
+		return "redirect:/";
 	}
 	@ResponseBody
 	@PostMapping("idcheck")

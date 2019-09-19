@@ -9,7 +9,7 @@ import com.movie.domain.member.MemberDTO;
 import com.movie.persistence.member.MemberDAO;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public   class MemberServiceImpl implements MemberService{
 	
 	@Inject
 	MemberDAO mDao;
@@ -21,6 +21,7 @@ public class MemberServiceImpl implements MemberService{
 			MemberDTO one = viewMember(mDto.getUserid());
 			httpSession.setAttribute("userid", one.getUserid());
 			httpSession.setAttribute("name", one.getName());
+			
 		}
 		return result;
 	}
@@ -41,6 +42,16 @@ httpSession.invalidate();
 	public int idCheck(String id) {
 		// TODO 아이디 중복체크
 		return mDao.idCheck(id);
+	}
+
+	@Override
+	public void write(MemberDTO mDto, HttpSession httpSession) {
+			mDao.write(mDto);
+//		httpSession.setAttribute("phone", one.getPhone());
+//		httpSession.setAttribute("email", one.getEmail());
+//		httpSession.setAttribute("zipcode", one.getZipcode());
+//		httpSession.setAttribute("addr1", one.getAddr1());
+//		httpSession.setAttribute("addr2", one.getAddr2());
 	}
 
 	
