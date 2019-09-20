@@ -36,6 +36,30 @@ margin-top: 100px;
 td{
 height: 40px;
 }
+button.bz-btn.add{
+	background-color: olive;
+	border: 2px solid olive;
+	color:white;
+}
+li.button_on{
+border: 1px solid black;
+padding: 5px;
+color: black;
+cursor: pointer; 
+border-radius: 5px;
+}
+li.button_on a{
+color: black;
+cursor: pointer;
+}
+li.button_on:hover{
+border: 1px solid red;
+border-radius: 5px;
+}
+li.button_on a:hover{
+color: red;
+cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -117,16 +141,16 @@ height: 40px;
 			<ul class="page" style="display: flex; justify-content: center">
 				<c:if test="${map.pager.curBlock > 1}">
 
-					<li><a
+					<li class="button_on"><a
 						href="${path}/board/list?curPage=${map.pager.blockBegin-10}&sort_option=${map.sort_option}&search_option=${map.search_option}&keyword=${map.keyword}"><i
 							class="fas fa-angle-left"></i></a></li>
-					<li><a
+					<li class="button_on"><a
 						href="${path}/board/list?curPage=1&sort_option=${map.sort_option}&search_option=${map.search_option}&keyword=${map.keyword}">1</a></li>
-					<li>...</li>
+					<li class="button_on">...</li>
 				</c:if>
 				<c:forEach begin="${map.pager.blockBegin}"
 					end="${map.pager.blockEnd}" var="idx">
-					<li
+					<li class="button_on"
 						<c:out value="{map.pager.curPage == idx ?
 				'class=active':''}"/>>
 						<a
@@ -147,8 +171,8 @@ height: 40px;
 			</ul>
 		</div>
 		<div class="button-input">
-			<button id="write">게시글 등록</button>
-			<button id="re">처음으로</button>
+			<button id="write" class="bz-btn add">게시글 등록</button>
+			<button id="re" class="bz-btn reset">처음으로</button>
 		</div>
 
 	</div>

@@ -4,13 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/main.css?ver=20190920">
+	href="${path}/resources/css/main.css?ver=2019092001">
 	<link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/modal.css?ver=20190906">
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/album.css?ver=2019090304">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/common.css?ver=2019090502">
+	href="${path}/resources/css/common.css?ver=2019092001">
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/view.css?ver=20190917">
 <link rel="stylesheet" type="text/css"
