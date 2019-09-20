@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>핀냐무비 : 회원탈퇴</title>
 <style type="text/css">
 .delete_h3 {
 	text-align: center;

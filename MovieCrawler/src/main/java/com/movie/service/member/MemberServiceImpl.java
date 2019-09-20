@@ -68,6 +68,18 @@ httpSession.invalidate();
 		
 	}
 
+	@Override
+	public void update(MemberDTO mDto,HttpSession httpSession) {
+		// TODO 회원수정
+		String userid =(String) httpSession.getAttribute("userid");
+		mDto.setUserid(userid);
+		int result= mDao.update(mDto);
+		if(result >0) {
+			httpSession.setAttribute("name", mDto.getName());
+		}
+		
+	}
+
 	
 
 }

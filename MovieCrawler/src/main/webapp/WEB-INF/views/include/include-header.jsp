@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/main.css?ver=20190906">
+	href="${path}/resources/css/main.css?ver=20190920">
 	<link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/modal.css?ver=20190906">
 <link rel="stylesheet" type="text/css"
@@ -106,6 +106,10 @@ div.drop-down-content {
 li.drop-down:hover div.drop-down-content {
 	display: block;
 }
+li.main-class{
+color: white;
+
+}
 </style>
 </head>
 <button id="topBtn" class="sideBtn">
@@ -113,9 +117,16 @@ li.drop-down:hover div.drop-down-content {
 </button>
 <nav class="main">
 	<ul class="main-menu">
-		<li><a href="${path}/">홈</a></li>
-		<li><a href="${path}/board/list">커뮤니티</a></li>
+				<li class="drop-down"><a href="" class="drop-down-btn">핀냐무비소게</a>
+					<div class="drop-down-content">
+						<a href="" class="adout-drop">공지상황</a> 
+						<a href="" class="adout-drop">공백</a> 
+						<a href="" class="adout-drop">공백</a>
 
+					</div></li>
+
+		<li><a href="${path}/board/list">커뮤니티</a></li>
+		<li class="main-class"><a href="${path}/">핀냐무비</a></li>
 		<c:choose>
 			<c:when test="${empty sessionScope.name}">
 				<li><a href="#" id="login" class="a-login">로그인</a></li>
@@ -127,7 +138,7 @@ li.drop-down:hover div.drop-down-content {
 				<li id="logout_btn"><a href="">로그아웃</a></li>
 				<li class="drop-down"><a href="" class="drop-down-btn">마이페이지</a>
 					<div class="drop-down-content">
-						<a href="" class="adout-drop">회원수정</a> 
+						<a href="${path}/member/update" class="adout-drop">회원수정</a> 
 						<a href="${path}/member/delete" class="adout-drop">회원탈퇴</a> 
 						<a href="" class="adout-drop">QnA</a>
 

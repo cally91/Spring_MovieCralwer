@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.movie.domain.member.MemberDTO;
 import com.movie.service.member.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.net.aso.h;
 
 @Controller
 @Slf4j
@@ -68,6 +70,25 @@ public class MemberController {
 		return "redirect:/";
 		
 	}
+	@GetMapping(value = "update")
+	public String update(HttpSession httpSession,Model model) {
+		String userid =(String) httpSession.getAttribute("userid");
+		if(userid  ==null) {
+			return"redirect:/";	
+		}else {
+			model.addAttribute("one", mServiece.viewMember(userid));
+			
+			return "member/write";	
+		}
+		
+	}
+	@PostMapping(value = "update")
+	public String update(MemberDTO mDto,HttpSession httpSession) {
+		log.info(mDto.toString());
+		mServiece.update(mDto, httpSession);
+		return "redirect:/";
+	}
+	
 	@ResponseBody
 	@PostMapping("pwcheck")
 	public int pwCheck(String id, String pw) {

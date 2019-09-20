@@ -24,7 +24,7 @@ header h2 {
 }
 
 nav.main {
-	
+	font-size: 20px;
 	position: fixed;
 	top: 0;
 }
@@ -71,6 +71,9 @@ ul.main-menu a:hover nav {
     border-color: transparent;
 }
 
-ul.main-menu li:nth-child(3) {
+ul.main-menu li:nth-child(4) {
 	margin-left: auto;
+}
+ul.main-menu li:nth-child(3) {
+	margin-left: 35%;
 }

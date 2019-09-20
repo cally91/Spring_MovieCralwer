@@ -50,4 +50,10 @@ public  class MemberDAOImpl implements MemberDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.delete("member.delete",id);
 	}
+
+	@Override
+	public int update(MemberDTO mDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("member.update",mDto);
+	}
 }
