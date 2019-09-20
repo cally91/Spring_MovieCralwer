@@ -1,5 +1,8 @@
 package com.movie.controller.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -47,10 +50,30 @@ public class MemberController {
 		mServiece.write(mDto, httpSession);
 		return "redirect:/";
 	}
+	
+	
 	@ResponseBody
 	@PostMapping("idcheck")
 	public int idcheck(String id) {
 		log.info("AJEX ID 중복체크 : "+id);
 		return mServiece.idCheck(id);
+	}
+	@GetMapping(value = "delete")
+	public String delete() {
+		return "member/delete";
+	}
+	@PostMapping(value = "delete")
+	public String delete(String id, HttpSession httpSession) {
+		mServiece.delete(id,httpSession);
+		return "redirect:/";
+		
+	}
+	@ResponseBody
+	@PostMapping("pwcheck")
+	public int pwCheck(String id, String pw) {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pw", pw);
+		return mServiece.pwCheck(map);
 	}
 }

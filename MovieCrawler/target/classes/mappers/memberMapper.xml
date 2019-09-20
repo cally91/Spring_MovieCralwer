@@ -21,6 +21,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT COUNT(userid) FROM tbl_member
 	WHERE userid = 	#{id}
 	</select>
+	<select id="pwCheck" resultType="int">
+	SELECT COUNT(*) FROM tbl_member
+	WHERE userid = 	#{id} AND passpw = #{pw}
+	</select>
+	<delete id="delete" parameterType="String">
+	DELETE FROM tbl_member
+	WHERE userid = 	#{id}
+	</delete>
 </mapper>
 
 

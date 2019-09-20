@@ -1,5 +1,7 @@
 package com.movie.service.member;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -47,11 +49,23 @@ httpSession.invalidate();
 	@Override
 	public void write(MemberDTO mDto, HttpSession httpSession) {
 			mDao.write(mDto);
-//		httpSession.setAttribute("phone", one.getPhone());
-//		httpSession.setAttribute("email", one.getEmail());
-//		httpSession.setAttribute("zipcode", one.getZipcode());
-//		httpSession.setAttribute("addr1", one.getAddr1());
-//		httpSession.setAttribute("addr2", one.getAddr2());
+	}
+
+	@Override
+	public int pwCheck(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return mDao.pwCheck(map);
+	}
+
+	@Override
+	public void delete(String id,HttpSession httpSession) {
+		// TODO 회원탈퇴
+		//2.session값을 초기화
+		int result = mDao.delete(id);
+		if(result>=1) {
+			httpSession.invalidate();
+		}
+		
 	}
 
 	

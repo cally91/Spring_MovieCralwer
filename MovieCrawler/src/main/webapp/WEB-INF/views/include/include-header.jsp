@@ -3,7 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 <meta charset="UTF-8">
-
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/main.css?ver=20190906">
+	<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/modal.css?ver=20190906">
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/album.css?ver=2019090304">
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/common.css?ver=2019090502">
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/view.css?ver=20190917">
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/button.css?ver=2019091001">
 <title>Insert title here</title>
 <style>
 .test-style {
@@ -78,6 +89,23 @@ span.close:hover {
 div.err_msg, div.err_msg_id, div.err_msg_pass {
 	color: red;
 }
+
+li.drop-down {
+	display: block;
+}
+
+div.drop-down-content {
+	display: none;
+	position: absolute;
+	background-color: orange;
+	min-width: 160px;
+	z-index: 10;
+	width: 30px;
+}
+
+li.drop-down:hover div.drop-down-content {
+	display: block;
+}
 </style>
 </head>
 <button id="topBtn" class="sideBtn">
@@ -95,10 +123,16 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 			</c:when>
 
 			<c:otherwise>
-				<li ><a href="">${name}님</a></li>
+				<li><a href="">${name}님</a></li>
 				<li id="logout_btn"><a href="">로그아웃</a></li>
-				<li><a href="">마이페이지</a></li>
-			</c:otherwise>
+				<li class="drop-down"><a href="" class="drop-down-btn">마이페이지</a>
+					<div class="drop-down-content">
+						<a href="" class="adout-drop">회원수정</a> 
+						<a href="${path}/member/delete" class="adout-drop">회원탈퇴</a> 
+						<a href="" class="adout-drop">QnA</a>
+
+					</div></li>
+`			</c:otherwise>
 		</c:choose>
 	</ul>
 </nav>
@@ -133,11 +167,11 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 <script>
 	$(function() {
 		var msg = '${message}'; // 로그인 유무
-		var uri ='${uri}';
-		if (msg == 'nologin'){
-				$('#modal-box').css('display', 'block')
-				$('.err_msg_id').css('display', 'block').text('로그인이 필요합니다.')
-			}
+		var uri = '${uri}';
+		if (msg == 'nologin') {
+			$('#modal-box').css('display', 'block')
+			$('.err_msg_id').css('display', 'block').text('로그인이 필요합니다.')
+		}
 		$("#login").click(function() {
 			$("#modal-box").css('display', 'block')
 		})
@@ -155,12 +189,12 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 					$(".btn-login").click();
 				}
 			});
-				$(".passpw").keydown(function(key) {
-					if (key.keyCode == 13) {
-						$(".btn-login").click();
-					}
-				});
+			$(".passpw").keydown(function(key) {
+				if (key.keyCode == 13) {
+					$(".btn-login").click();
+				}
 			});
+		});
 		// 로그인 에러
 		$(".btn-login").click(
 				function() {
@@ -169,8 +203,8 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 					var regEmpty = /\s/g;
 
 					if (userid == '' || userid.length == 0) {
-						$('.err_msg_id').text(' 필수입력정보입니다.').css(
-								'visibility', 'visible')
+						$('.err_msg_id').text(' 필수입력정보입니다.').css('visibility',
+								'visible')
 						$(".err_msg_pass").text("");
 						return false;
 					} else if (userid.match(regEmpty)) {
@@ -179,8 +213,8 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 						$(".err_msg_pass").text("");
 						return false;
 					} else if (passpw == '' || passpw.length == 0) {
-						$('.err_msg_pass').text('필수입력정보입니다.').css(
-								'visibility', 'visible')
+						$('.err_msg_pass').text('필수입력정보입니다.').css('visibility',
+								'visible')
 						$(".err_msg_id").text("");
 						return false;
 					} else if (passpw.match(regEmpty)) {
@@ -199,12 +233,12 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 						data : "userid=" + userid + "&passpw=" + passpw,
 						success : function(data) {
 							if (data == "1") {
-								if(uri ==""){
-								location.reload();
+								if (uri == "") {
+									location.reload();
 								} else {
-									location.href=uri;	
+									location.href = uri;
 								}
-								
+
 							} else if (data == "-1") {
 								$('#input_id').focus();
 								$('.err_msg').text('회원 아이디 또는 비밀번호가 일치하지않습니다')
@@ -219,19 +253,19 @@ div.err_msg, div.err_msg_id, div.err_msg_pass {
 						}
 					});
 				})
-				$('#logout_btn').click(function() {
-					$.ajax({
-						url:"${path}/member/logout",
-						type:"POST",
-						asyns: true,
-						success: function() {
-							location.reload();
-						},
-						error : function() {
-							alert("System Error o0o")
-						}
-					})
-				});
+		$('#logout_btn').click(function() {
+			$.ajax({
+				url : "${path}/member/logout",
+				type : "POST",
+				asyns : true,
+				success : function() {
+					location.reload();
+				},
+				error : function() {
+					alert("System Error o0o")
+				}
+			})
+		});
 		$(document).on("click", "#join", function() {
 			location.href = "${path}/member/write";
 		})

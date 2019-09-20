@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
 <c:if test="${sessionScope.userid!= null }">
-<script>
-	alert("로그아웃 후 사용해주세요.");
-	location.href="${path}/";
-</script>
+	<script>
+		alert("로그아웃 후 사용해주세요.");
+		location.href = "${path}/";
+	</script>
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -23,12 +23,16 @@
 	href="${path}/resources/css/button.css?ver=2019091001">
 <title>핀냐무비 : 회원가입</title>
 <style type="text/css">
+a {
+	text-decoration: none;
+}
+
 div#member_join {
-	margin: 100px auto 0 auto;
+	margin: 50px auto 0 auto;
 	width: 600px;
 }
 
-label.join_label, span.join-class {
+label.join_label, span.join-class, div#join-add {
 	margin-left: 10px;
 }
 
@@ -44,6 +48,12 @@ div.member_body {
 
 h2.join_h2 {
 	text-align: center;
+	color: orange;
+	font-size: 50px;
+}
+
+h2.join_h2 a {
+	color: orange;
 }
 
 input.join_write {
@@ -57,12 +67,16 @@ input.join_email {
 	height: 50px;
 	width: 40%;
 }
- input.addrbtn,.join_addr{
- margin: 10px;
+
+input.addrbtn, .join_addr, #addr_btn {
+	margin: 10px;
 	height: 50px;
 	width: 41%;
- }
- 
+}
+
+input.addrbtn {
+	cursor: pointer;
+}
 
 input.btn_write {
 	margin: 10px;
@@ -83,12 +97,22 @@ select.join_select {
 .join-class {
 	margin: 0px;
 }
-.join-addr{
-margin-top:10px;
-text-align: center;
+
+.join-addr {
+	margin-top: 10px;
+	text-align: center;
 }
-#err_check_msg{
-text-align: center;
+
+#err_check_msg {
+	text-align: center;
+}
+
+#addr_btn {
+	background-color: black;
+	border: 1px solid black;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
 }
 </style>
 </head>
@@ -96,7 +120,9 @@ text-align: center;
 	<%@ include file="../include/include-header.jsp"%>
 	<div id="member_join">
 		<div class="member_body">
-			<h2 class="join_h2">회원가입</h2>
+			<h2 class="join_h2">
+				<a href="${path}/">핀냐무비</a>
+			</h2>
 			<div class="member_content">
 				<form action="${path}/member/write" method="POST" id="frm_mem">
 					<div class="in-box">
@@ -140,9 +166,9 @@ text-align: center;
 						</h3>
 
 						<input type="text" name="email" id="email_id" class="join_email"
-							placeholder="아이디">@<input name="email" id="email_url" class="join_email"
-							placeholder="URL"> <select id="selmail"
-							class="join_select" name="type">
+							placeholder="아이디">@<input name="email" id="email_url"
+							class="join_email" placeholder="URL"> <select
+							id="selmail" class="join_select" name="type">
 							<option value="direct">직접입력</option>
 							<option value="naver.com">naver.com(네이버)</option>
 							<option value="daum.net">daum.net(다음)</option>
@@ -163,13 +189,16 @@ text-align: center;
 						<h3>
 							<label class="join_label">주소</label>
 						</h3>
-						<input type="text" id="sample6_postcode" name="zipcode" class="addrbtn" placeholder="우편번호" readonly="readonly"> 
-							<span id="sample6_extraAddress"></span>
-							 <input type="button" onclick="sample6_execDaumPostcode()" id="addr_btn" value="우편번호 찾기" readonly="readonly"><br> <input
-							type="text" id="sample6_address" name="addr1" class="addrbtn" placeholder="주소"
-							readonly="readonly"> <input type="text"
-							id="sample6_detailAddress" class="join_addr" name="addr2" placeholder="상세주소">
-						<span id="join-add" class="join-class"></span>
+						<input type="text" id="sample6_postcode" name="zipcode"
+							class="addrbtn" placeholder="우편번호" readonly="readonly"> <span
+							id="sample6_extraAddress"></span> <input type="button"
+							onclick="sample6_execDaumPostcode()" id="addr_btn"
+							value="우편번호 찾기" readonly="readonly"><br> <input
+							type="text" id="sample6_address" name="addr1" class="addrbtn"
+							placeholder="주소" readonly="readonly"> <input type="text"
+							id="sample6_detailAddress" class="join_addr" name="addr2"
+							placeholder="상세주소">
+						<div id="join-add" class="join-div"></div>
 					</div>
 					<div id="err_check_msg"></div>
 					<div class="btn-box center">
@@ -199,7 +228,8 @@ text-align: center;
 				$('#addr_btn').click();
 			}
 		})
-		$('#sample6_detailAddress').blur(function() {
+		$('#sample6_detailAddress').blur(
+				function() {
 					var dAddr = $.trim($(this).val());
 					if (dAddr == "" || dAddr.length == 0) {
 						$('#sample6_detailAddress').next().text('필수 정보입니다')
@@ -211,55 +241,56 @@ text-align: center;
 					check_posh = true;
 					return true;
 				})
-		$('.bz-btn.save').click(function() {
-							var email_id = $('#email_id').val();
-							var email_url = $('#email_url').val();
-							var email = email_id + '@' + email_url;
-							if(!check_id){
-								$('#inputid').focus();
-								$('#err_check').css('display','none')
-								$('#err_check_msg').text("필수 정보를 모두 입력해주세요")
-								.css('display','block').css('color', '#FF3636');
-							}else if(!check_pw){
-								$('#inputpw').focus();
-								$('#err_check').css('display','none')
-								$('#err_check_msg').text("필수 정보를 모두 입력해주세요")
-								.css('display','block').css('color', '#FF3636');
-							}else if(!check_rpw ){
-								$('#inputrpw').focus();
-								$('#err_check').css('display','none')
-								$('#err_check_msg').text("필수 정보를 모두 입력해주세요")
-								.css('display','block').css('color', '#FF3636');
-							}else if(!check_name){
-								$('#inputname').focus();
-								$('#err_check').css('display','none')
-								$('#err_check_msg').text("필수 정보를 모두 입력해주세요")
-								.css('display','block').css('color', '#FF3636');
-							}else if(!check_phone){
-								$('#inputPhone').focus();
-								$('#err_check').css('display','none')
-								$('#err_check_msg').text("필수 정보를 모두 입력해주세요")
-								.css('display','block').css('color', '#FF3636');
-							
-							}else if(!check_email ){
-								$('#email_id').focus();
-								$('#err_check').css('display','none')
-								$('#err_check_msg').text("필수 정보를 모두 입력해주세요")
-								.css('display','block').css('color', '#FF3636');								
-							}else if(!check_posh ){
-								$('#sample6_detailAddress').focus();
-								$('#err_check').css('display','none')
-								$('#err_check_msg').text("필수 정보를 모두 입력해주세요")
-								.css('display','block').css('color', '#FF3636');
-							}
-							
-							$('#email').val(email);
-							//유효성 체크
-							//alert('아이디 = ' + check_id + ' 비밀번호 = ' + check_pw+ ' 비밀번호재확인 = ' + check_rpw + ' 이름 = '+ check_name+' 이메일 = ' + check_email + ' 휴대전화 = '+ check_phone + ' 주소  = ' + check_posh);
-							alert("submit");
-							$('#frm_mem').submit();
+		$('.bz-btn.save').click(
+				function() {
+					var email_id = $('#email_id').val();
+					var email_url = $('#email_url').val();
+					var email = email_id + '@' + email_url;
+					if (!check_id) {
+						$('#inputid').focus();
+						$('#err_check').css('display', 'none')
+						$('#err_check_msg').text("필수 정보를 모두 입력해주세요").css(
+								'display', 'block').css('color', '#FF3636');
+					} else if (!check_pw) {
+						$('#inputpw').focus();
+						$('#err_check').css('display', 'none')
+						$('#err_check_msg').text("필수 정보를 모두 입력해주세요").css(
+								'display', 'block').css('color', '#FF3636');
+					} else if (!check_rpw) {
+						$('#inputrpw').focus();
+						$('#err_check').css('display', 'none')
+						$('#err_check_msg').text("필수 정보를 모두 입력해주세요").css(
+								'display', 'block').css('color', '#FF3636');
+					} else if (!check_name) {
+						$('#inputname').focus();
+						$('#err_check').css('display', 'none')
+						$('#err_check_msg').text("필수 정보를 모두 입력해주세요").css(
+								'display', 'block').css('color', '#FF3636');
+					} else if (!check_phone) {
+						$('#inputPhone').focus();
+						$('#err_check').css('display', 'none')
+						$('#err_check_msg').text("필수 정보를 모두 입력해주세요").css(
+								'display', 'block').css('color', '#FF3636');
 
-						})
+					} else if (!check_email) {
+						$('#email_id').focus();
+						$('#err_check').css('display', 'none')
+						$('#err_check_msg').text("필수 정보를 모두 입력해주세요").css(
+								'display', 'block').css('color', '#FF3636');
+					} else if (!check_posh) {
+						$('#sample6_detailAddress').focus();
+						$('#err_check').css('display', 'none')
+						$('#err_check_msg').text("필수 정보를 모두 입력해주세요").css(
+								'display', 'block').css('color', '#FF3636');
+					}
+
+					$('#email').val(email);
+					//유효성 체크
+					//alert('아이디 = ' + check_id + ' 비밀번호 = ' + check_pw+ ' 비밀번호재확인 = ' + check_rpw + ' 이름 = '+ check_name+' 이메일 = ' + check_email + ' 휴대전화 = '+ check_phone + ' 주소  = ' + check_posh);
+					alert("submit");
+					$('#frm_mem').submit();
+
+				})
 		$('.input_join').focus(function() {
 			$(this).parent().css('border', '1px solid #f39');
 		})
@@ -267,7 +298,8 @@ text-align: center;
 			$(this).parent().css('border', '1px solid #dada');
 		})
 		//id값 유효성 체크
-		$("#inputid").keyup(function() {
+		$("#inputid").keyup(
+				function() {
 					var memId = $.trim($(this).val());
 					var checkResult = joinValidate.checkId(memId);
 					if (checkResult.code != 0) {//경고 메세지 출력
@@ -287,15 +319,18 @@ text-align: center;
 				})
 
 		//비밀번호 유효성 체크
-		$('#inputpw').keyup(function() {
+		$('#inputpw')
+				.keyup(
+						function() {
 							var memPw = $.trim($(this).val());
 							var memRpw = $.trim($("#inputrpw").val());
-							var checkResult = joinValidate.checkPw(memPw,memRpw);
+							var checkResult = joinValidate.checkPw(memPw,
+									memRpw);
 
 							if (checkResult.code == 4) {
 								$("#inputrpw").next().text(checkResult.desc)
-										.css('display', 'block')
-										.css('color','#FF3636');
+										.css('display', 'block').css('color',
+												'#FF3636');
 								check_pw = false;
 								return false;
 
@@ -331,9 +366,8 @@ text-align: center;
 					var memRpw = $.trim($(this).val());
 					var checkResult = joinValidate.checkRpw(memPw, memRpw);
 					if (checkResult.code != 0) {//경고 메세지 출력
-						$(this).next().text(checkResult.desc)
-							.css('display','block')
-							.css('color', '#FF3636');
+						$(this).next().text(checkResult.desc).css('display',
+								'block').css('color', '#FF3636');
 						check_rpw = false;
 						return false;
 					} else {
@@ -355,9 +389,8 @@ text-align: center;
 						check_name = false;
 						return false;
 					} else {
-						$(this).next().text(checkResult.desc)
-						.css('display','block')
-						.css('color', '#0000ff');
+						$(this).next().text(checkResult.desc).css('display',
+								'block').css('color', '#0000ff');
 						check_name = true;
 						return true;
 					}
