@@ -22,12 +22,18 @@ public class Scheduler {
 	@Inject
 	ReviewService rService;
 
-	@Scheduled(cron = "0 10 9 * * *")
+	//영화정보
+	@Scheduled(cron = "20 16 10 * * *")
 	public void movieCollect() throws IOException {
 
 		mService.ticketRank();
 		rService.ticketRank();
 
+	}
+	//영화평점 수집
+	@Scheduled(cron = "50 26 14 * * *")
+	public  void replyCollect() throws IOException{
+		mService.replyMovie();
 	}
 
 }

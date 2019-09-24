@@ -86,7 +86,7 @@ cursor: pointer;
 				<option value="content">내용</option>
 				<option value="writer">작성자</option>
 			</select> <input type="text" id="search_board" placeholder="검색할 값을 입력하세요">
-			<button onclick="search_board()" class="btn_search" id="search_btn">검색</button>
+			<button onclick="search_board()" class="btn_search" id="search_btn" >검색</button>
 		</div>
 		<table>
 			<tr>

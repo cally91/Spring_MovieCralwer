@@ -8,21 +8,27 @@ import javax.inject.Inject;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.movie.domain.mongo.MovieReplyDTO;
 import com.movie.domain.movie.MovieDTO;
+import com.movie.persistence.mongo.MongoDAO;
 import com.movie.persistence.movie.MovieDAO;
 
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Service
 public class MovieServiceImpl implements MovieService {
 
 	@Inject
 	MovieDAO mDao;
-	
+	@Inject
+	MongoDAO mongoDao;
 	@Override
 	@Transactional
 	public List<MovieDTO> ticketRank() throws IOException {
@@ -103,5 +109,78 @@ public class MovieServiceImpl implements MovieService {
 		
 		return mDao.movieList(sort);
 	}
+
+	@Override
+	public void replyMovie() throws IOException {
+		List<MovieDTO> list= mDao.getMovieCode();
+		for (MovieDTO movieDTO : list) {
+			log.info(movieDTO.getMovie()+","+movieDTO.getDaumcode());
+		}
+		replyCrawler(list.get(2).getMovie(),list.get(2).getDaumcode());
+		
+	}
+
+	@Override
+	public void replyCrawler(String movie,String code) throws IOException {
+		// TODO Auto-generated method stub
+		 String base = "";
+		 int page = 1;
+		 String url = "";
+		 int count = 0;
+		 String compare = "";
+		 int sum = 0;
+			  base = "https://movie.daum.net/moviedb/grade?movieId="+code+"&type=netizen&page=";
+			 url = base + page;
+			label:while (true) {
+				
+				Document doc = Jsoup.connect(url).get();
+				Elements reply = doc.select("div.review_info");
+				if(reply.isEmpty()) {
+					break label;
+				}
+				System.out.println("");
+				System.out.println("→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→");
+				System.out.println(page + "페이지");
+				System.out.println("→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→");
+				System.out.println("");
+				
+				for (Element one : reply) {
+					count++;
+					System.out.println("→→→→→→→→→→→→→→→→→→→→"+count+"→→→→→→→→→→→→→→→→→→");
+					String date = one.select("span.info_append").text();
+					String writer = one.select("em.link_profile").text();
+					String score = one.select("em.emph_grade").text();
+					String score_max = one.select("span.txt_grade").text();
+					String content = one.select("p.desc_review").text();
+					
+					
+					
+					System.out.println("작성일자 :" + date);
+					System.out.println("작성자 :" + writer);
+					System.out.println("내용 : " + content);
+					System.out.println("평점 : " + score+score_max);
+					MovieReplyDTO mDto= new MovieReplyDTO(code,movie,score,content,writer,date);
+					mongoDao.save(mDto);
+					
+					int numScore=Integer.parseInt(score);
+					
+				}
+				
+				
+				page = page + 1;
+				url = base + page;
+				
+			}
+
+			 System.out.println("→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→");
+		
+	}
+
+	@Override
+	public void detail(String code) {
+	mongoDao.findAll(code);
+		
+	}
+
 
 }

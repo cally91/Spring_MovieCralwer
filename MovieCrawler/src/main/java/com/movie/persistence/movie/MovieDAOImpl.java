@@ -37,4 +37,10 @@ public class MovieDAOImpl implements MovieDAO {
 		
 	}
 
+	@Override
+	public List<MovieDTO> getMovieCode() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("movie.getMovieCode");
+	}
+
 }

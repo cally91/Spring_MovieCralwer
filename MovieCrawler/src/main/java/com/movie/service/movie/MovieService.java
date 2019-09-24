@@ -13,4 +13,12 @@ public interface MovieService {
 	
 	// 실시간영화순위정보를 조회
 	public List<MovieDTO> movieList(String sort);
+	//실시간 영화순위(1~10위) 댓글 수집
+	public void replyMovie()  throws IOException;
+	
+	//영화 댓글 크롤러
+	public void replyCrawler(String movie, String code) throws IOException;
+	
+	//해당 영화 댓글조회(daumcode값으로) 
+	public void detail(String code);
 }

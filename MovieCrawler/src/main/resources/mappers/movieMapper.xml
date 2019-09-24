@@ -37,6 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAllReview">
 		DELETE FROM tbl_cinema
 	</delete>
+	<!-- 영화댓글 크롤링에 필요한 영화정보를 가져옴 -->
+	<select id="getMovieCode" resultType="com.movie.domain.movie.MovieDTO">
+	SELECT movie,daumcode 
+FROM tbl_movie
+ORDER BY rank
+	</select>
 </mapper>
 
 

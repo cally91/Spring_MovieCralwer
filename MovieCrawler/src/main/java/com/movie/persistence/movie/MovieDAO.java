@@ -10,5 +10,7 @@ public interface MovieDAO {
 	
 	public List<MovieDTO> movieList(String sort);
 	public void deleteAll();
+
+	public List<MovieDTO> getMovieCode();
 	
 }
