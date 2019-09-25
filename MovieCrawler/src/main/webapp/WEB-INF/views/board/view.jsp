@@ -81,6 +81,7 @@
 </body>
 <script>
 	$(function() {
+		
 		$("#btn-delete").click(function() {
 			$("#modal-delete").css('display', 'block')
 		})
@@ -119,6 +120,11 @@
 			})
 
 		})
+		$(document).on("click","#btn-reply",function(){
+			
+		})
+			
+		
 		$(document)
 				.on(
 						"click",
@@ -154,6 +160,9 @@
 						})
 		$(document).on("click", "#btn-update", function() {
 			location.href = "${path}/board/write?bno=${one.bno}";
+		})
+		$(document).on("click", "#btn-reply", function() {
+			location.href="${path}/board/answer?bno=${one.bno}";
 		})
 
 	})

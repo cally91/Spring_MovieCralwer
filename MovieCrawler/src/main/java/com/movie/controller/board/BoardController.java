@@ -103,5 +103,25 @@ public class BoardController {
 		model.addAttribute("one",dDto);
 		return "board/view";
 	}
+	// 게시글 답글  View
+	@GetMapping("answer")
+	public String answer(int bno,Model model) {
+		model.addAttribute("one",bService.read(bno));
+		model.addAttribute("flag","answer");
+		return "board/write";
+	}
+	@PostMapping("answer")
+	public String answer (BoardDTO bDto, HttpSession session) {
+		bDto.setWriter((String)session.getAttribute("userid"));
+		log.info(bDto.toString());
+		// 답글을 달려고 한느 메인 게시글의 정보를 조회
+		BoardDTO pastDto = bService.read(bDto.getBno());
+		bDto.setRef(pastDto.getRef());
+		bDto.setRe_step(pastDto.getRe_step());
+		bDto.setRe_level(pastDto.getRe_level());
+		// DB에 답글 등록!!
+		bService.answer(bDto);
+		return "redirect:view?bno="+bDto.getBno();
+	}
 	
 }

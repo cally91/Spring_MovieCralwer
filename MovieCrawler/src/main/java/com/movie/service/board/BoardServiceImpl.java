@@ -7,12 +7,13 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.movie.domain.board.BoardDTO;
 import com.movie.persistence.board.BoardDAO;
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public  class BoardServiceImpl implements BoardService {
 
 	@Inject
 	BoardDAO bDao;
@@ -80,6 +81,19 @@ public class BoardServiceImpl implements BoardService {
 			httpSession.setAttribute("update_time_" + bno, current_time);
 		}
 
+	}
+
+
+	@Transactional
+	@Override
+	public void answer(BoardDTO bDto) {
+		// 답글의 순서 조정(정렬) : re_step +1
+		bDao.updateStep(bDto); // ref, re_step
+		// 답글 등록
+		bDto.setTitle("RE:" +bDto.getTitle());
+		bDto.setRe_step(bDto.getRe_step() +1);
+		bDto.setRe_level(bDto.getRe_level() +1);
+		bDao.answer(bDto);
 	}
 
 }
